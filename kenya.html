@@ -869,7 +869,8 @@
     /* Full-screen photo hero */
     .hero-full .hero-split { display: block; position: relative; min-height: min(86vh, 760px); max-width: none; overflow: hidden; }
     .hero-full .hero-image-wrap { position: absolute; inset: 0; height: 100%; min-height: 0; z-index: 0; border: 0; }
-    .hero-full .hero-image-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 30%; opacity: 1; }
+    .hero-full .hero-image-wrap img { width: 100%; height: 118%; object-fit: cover; object-position: 58% 0%; opacity: 1; }
+    @media (min-width: 768px) { .hero-full .hero-image-wrap img { height: 100%; object-position: 60% 20%; } }
     .hero-full .hero-image-wrap::before { content: ''; display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; background: linear-gradient(180deg, rgba(6,30,32,0.30) 0%, rgba(6,30,32,0.22) 28%, rgba(6,30,32,0.80) 64%, rgba(6,30,32,0.95) 100%); }
     .hero-full .hero-content { position: relative; z-index: 2; min-height: min(86vh, 760px); display: flex; flex-direction: column; justify-content: flex-end; max-width: none; padding: var(--space-16) max(var(--space-4), calc((100vw - var(--content-default)) / 2 + var(--space-4))) var(--space-8); background: none; }
     .hero-full .hero-content > * { max-width: 40rem; }
@@ -955,7 +956,7 @@
           </div>
         </div>
         <div class="hero-image-wrap">
-          <img src="knee-hip-replacement-india-kenya-patient.jpg" alt="Kenyan patient with knee pain considering robotic knee replacement in India" width="1213" height="1296" fetchpriority="high" />
+          <img src="kenyan-man-knee-pain-at-home.webp" alt="Older Kenyan man at home holding his painful knee" width="825" height="1024" fetchpriority="high" />
         </div>
       </div>
     </section>
