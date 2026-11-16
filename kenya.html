@@ -765,6 +765,14 @@
     .nabh-badge-row { margin-top: var(--space-4); display: flex; align-items: center; gap: var(--space-3); }
         .nabh-caption { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.5; margin: 0; }
 
+    .doctors-heading { font-size: var(--text-lg); margin-top: var(--space-8); margin-bottom: var(--space-4); }
+    .doctors-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); max-width: 760px; }
+    .doctor-card { border-radius: var(--radius-lg); background: var(--color-surface); border: 1px solid color-mix(in oklch, var(--color-border) 80%, transparent); box-shadow: var(--shadow-sm); overflow: hidden; padding-bottom: var(--space-3); }
+    .doctor-card img { width: 100%; aspect-ratio: 5/6; object-fit: cover; object-position: center top; background: #fff; }
+    .doctor-initials { width: 100%; aspect-ratio: 5/6; display: flex; align-items: center; justify-content: center; background: var(--color-primary-highlight); color: var(--color-primary-active); font-family: 'Instrument Serif', serif; font-size: var(--text-2xl); }
+    .doctor-name { font-weight: 600; font-size: var(--text-sm); padding: var(--space-3) var(--space-3) 0; line-height: 1.3; }
+    .doctor-role { font-size: var(--text-xs); color: var(--color-text-muted); padding: 0.15rem var(--space-3) 0; line-height: 1.4; }
+
     .how-grid { display: flex; align-items: stretch; gap: var(--space-3); margin-top: var(--space-6); flex-wrap: wrap; }
     .how-card { flex: 1 1 220px; position: relative; padding: var(--space-5); border-radius: var(--radius-lg); display: flex; flex-direction: column; gap: 0.3rem; background: var(--color-primary-highlight); border: 1px solid color-mix(in oklch, var(--color-primary) 18%, transparent); transition: transform 220ms cubic-bezier(0.16,1,0.3,1), box-shadow 220ms cubic-bezier(0.16,1,0.3,1); }
     .how-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
@@ -1137,6 +1145,31 @@
             <p class="nabh-caption">NABH is India's national hospital accreditation board — it certifies patient safety and quality of care.</p>
           </div>
         </div>
+
+        <h3 class="doctors-heading">SGVP surgeons</h3>
+        <div class="doctors-grid reveal-stagger">
+          <div class="doctor-card">
+            <div class="doctor-initials" aria-hidden="true">KS</div>
+            <div class="doctor-name">Dr. Kartik Shukla</div>
+            <div class="doctor-role">Joint Replacement Surgeon</div>
+          </div>
+          <div class="doctor-card">
+            <img src="dr-vinay-parashar-sgvp-robotic-joint-replacement-surgeon.jpg" alt="Dr. Vinay Parashar, robotic joint replacement surgeon at SGVP Holistic Hospital" width="320" height="384" loading="lazy" />
+            <div class="doctor-name">Dr. Vinay Parashar</div>
+            <div class="doctor-role">Robotic Joint Replacement Surgeon</div>
+          </div>
+          <div class="doctor-card">
+            <img src="dr-jatin-vadodariya-sgvp-knee-replacement-surgeon.jpg" alt="Dr. Jatin Vadodariya, knee replacement surgeon at SGVP Holistic Hospital" width="320" height="384" loading="lazy" />
+            <div class="doctor-name">Dr. Jatin Vadodariya</div>
+            <div class="doctor-role">Total &amp; Partial Knee Replacement Surgeon</div>
+          </div>
+          <div class="doctor-card">
+            <img src="dr-bhupesh-patel-sgvp-spine-surgeon.jpg" alt="Dr. Bhupesh Patel, spine surgeon at SGVP Holistic Hospital" width="320" height="384" loading="lazy" />
+            <div class="doctor-name">Dr. Bhupesh Patel</div>
+            <div class="doctor-role">Spine Surgeon</div>
+          </div>
+        </div>
+        <p class="source-note">Your surgeon is confirmed by the hospital after X-ray review.</p>
       </div>
     </section>
 
