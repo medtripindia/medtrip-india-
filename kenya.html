@@ -769,7 +769,9 @@
     .doctors-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); max-width: 760px; }
     .doctor-card { border-radius: var(--radius-lg); background: var(--color-surface); border: 1px solid color-mix(in oklch, var(--color-border) 80%, transparent); box-shadow: var(--shadow-sm); overflow: hidden; padding-bottom: var(--space-3); }
     .doctor-card img { width: 100%; aspect-ratio: 5/6; object-fit: cover; object-position: center top; background: #fff; }
-    .doctor-initials { width: 100%; aspect-ratio: 5/6; display: flex; align-items: center; justify-content: center; background: var(--color-primary-highlight); color: var(--color-primary-active); font-family: 'Instrument Serif', serif; font-size: var(--text-2xl); }
+    .doctor-card img.doctor-photo-square { aspect-ratio: 1/1; }
+    .doctor-photo-zoom { aspect-ratio: 1/1; overflow: hidden; }
+    .doctor-card .doctor-photo-zoom img { width: 116%; max-width: none; margin-left: -8%; aspect-ratio: 1/1; }
     .doctor-name { font-weight: 600; font-size: var(--text-sm); padding: var(--space-3) var(--space-3) 0; line-height: 1.3; }
     .doctor-role { font-size: var(--text-xs); color: var(--color-text-muted); padding: 0.15rem var(--space-3) 0; line-height: 1.4; }
 
@@ -1174,12 +1176,12 @@
         <h3 class="doctors-heading">Our doctors in Nairobi</h3>
         <div class="doctors-grid reveal-stagger">
           <div class="doctor-card">
-            <img src="dr-veronica-cheboi-medtrip-india-nairobi.webp" alt="Dr. Veronica Cheboi, MedTrip India contact in Nairobi, Kenya" width="800" height="800" loading="lazy" />
+            <img class="doctor-photo-square" src="dr-veronica-cheboi-medtrip-india-nairobi.webp" alt="Dr. Veronica Cheboi, MedTrip India contact in Nairobi, Kenya" width="800" height="800" loading="lazy" />
             <div class="doctor-name">Dr. Veronica Cheboi</div>
             <div class="doctor-role">Nairobi, Kenya</div>
           </div>
           <div class="doctor-card">
-            <img src="dr-robert-kibet-medtrip-india-nairobi.webp" alt="Dr. Robert Kibet, MedTrip India contact in Nairobi, Kenya" width="800" height="800" loading="lazy" />
+            <div class="doctor-photo-zoom"><img src="dr-robert-kibet-medtrip-india-nairobi.webp" alt="Dr. Robert Kibet, MedTrip India contact in Nairobi, Kenya" width="800" height="800" loading="lazy" /></div>
             <div class="doctor-name">Dr. Robert Kibet</div>
             <div class="doctor-role">Nairobi, Kenya</div>
           </div>
