@@ -865,6 +865,30 @@
     @media (prefers-reduced-motion: reduce) {
       .whatsapp-button::before { animation: none; display: none; }
     }
+
+    /* Full-screen photo hero */
+    .hero-full .hero-split { display: block; position: relative; min-height: min(86vh, 760px); max-width: none; overflow: hidden; }
+    .hero-full .hero-image-wrap { position: absolute; inset: 0; height: 100%; min-height: 0; z-index: 0; border: 0; }
+    .hero-full .hero-image-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 30%; opacity: 1; }
+    .hero-full .hero-image-wrap::before { content: ''; display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; background: linear-gradient(180deg, rgba(6,30,32,0.30) 0%, rgba(6,30,32,0.22) 28%, rgba(6,30,32,0.80) 64%, rgba(6,30,32,0.95) 100%); }
+    .hero-full .hero-content { position: relative; z-index: 2; min-height: min(86vh, 760px); display: flex; flex-direction: column; justify-content: flex-end; max-width: none; padding: var(--space-16) max(var(--space-4), calc((100vw - var(--content-default)) / 2 + var(--space-4))) var(--space-8); background: none; }
+    .hero-full .hero-content > * { max-width: 40rem; }
+    .hero-full .hero-kicker { color: rgba(255,255,255,0.82); }
+    .hero-full .hero-title { color: #fff; font-size: clamp(2.3rem, 8.6vw, 4rem); line-height: 1.04; text-wrap: balance; }
+    .hero-full .hero-highlight { display: block; background: none; -webkit-background-clip: border-box; color: #8fe3d4; margin-top: 0.15em; }
+    .hero-full .hero-body { color: rgba(255,255,255,0.9); opacity: 1; }
+    .hero-full .hero-body .source-link { color: #fff; }
+    .hero-promises { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: var(--space-5); font-size: var(--text-xs); font-weight: 600; line-height: 1.3; color: #fff; text-align: center; }
+    .hero-promises span { padding: 0 var(--space-2); display: flex; align-items: center; justify-content: center; }
+    .hero-promises span + span { border-left: 1px solid rgba(255,255,255,0.35); }
+    .hero-full .hero-actions { margin-bottom: 0; }
+    .hero-full .btn-primary { background: #fff; color: var(--color-primary-active); }
+    .hero-full .btn-primary:hover { background: #f2f2f2; }
+    .hero-full .btn-secondary { background: rgba(255,255,255,0.14); color: #fff; border-color: rgba(255,255,255,0.5); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+    .hero-full .btn-secondary:hover { background: rgba(255,255,255,0.24); }
+    @media (max-width: 640px) {
+      .hero-full .hero-content { padding: var(--space-12) var(--space-4) var(--space-6); }
+    }
   </style>
 </head>
   <body>
@@ -907,21 +931,20 @@
   </header>
 
   <main id="main">
-    <section class="hero" aria-labelledby="hero-title">
+    <section class="hero hero-full" aria-labelledby="hero-title">
       <div class="hero-split">
         <div class="hero-content">
           <div class="hero-kicker">For patients in Kenya</div>
           <h1 id="hero-title" class="hero-title">
-            Knee &amp; Hip Replacement in India for Kenyan Patients —<br><span class="hero-highlight">robotic surgery, doctor-led.</span>
+            Knee &amp; Hip Replacement in India for Kenyan Patients. <span class="hero-highlight">High standard, lower cost.</span>
           </h1>
           <p class="hero-body">
-            NABH-accredited hospital. Transparent pricing with key treatment services included. Send your X-ray on WhatsApp and get a <a class="source-link" href="#price">free quote</a> today.
+            Send your X-ray on WhatsApp and get a <a class="source-link" href="#price">free quote</a> today.
           </p>
-          <div class="trust-pills">
-            <span class="pill-premium"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Robotic-assisted surgery</span>
-            <span class="pill-premium"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Lower cost, high quality</span>
-            <span class="pill-premium"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Doctor-led</span>
-            <span class="pill-premium"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>End-to-end coordination</span>
+          <div class="hero-promises">
+            <span>Robotic surgery</span>
+            <span>NABH-accredited</span>
+            <span>Doctor-led care</span>
           </div>
           <div class="hero-actions">
             <a class="btn-primary" data-meta-contact href="https://wa.me/918866172776?text=Hi%20MedTrip%20India%2C%20I%27m%20in%20Kenya%20and%20want%20a%20free%20knee%2Fhip%20case%20review." target="_blank" rel="noopener noreferrer">
