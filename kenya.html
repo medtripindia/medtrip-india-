@@ -896,10 +896,18 @@
       .hero-full .hero-content { grid-column: 1; grid-row: 1; justify-content: center; padding-right: var(--space-6); padding-block: var(--space-10); }
       .hero-full .hero-title { font-size: clamp(2.2rem, 4.3vw, 3.7rem); }
     }
-    @media (max-width: 640px) {
-      .hero-full .hero-content { padding: var(--space-12) var(--space-4) var(--space-6); }
-      .hero-full .hero-split, .hero-full .hero-content { min-height: max(86vh, 700px); }
-      .hero-full .hero-title { text-shadow: 0 1px 14px rgba(0,0,0,0.5); }
+    @media (max-width: 767px) {
+      /* Phone: text on the left, man on the right, side by side */
+      .hero-full .hero-split, .hero-full .hero-content { min-height: max(80vh, 640px); }
+      .hero-full .hero-image-wrap img { width: 100%; height: 100%; margin-top: 0; object-fit: cover; object-position: 78% 0%; }
+      .hero-full .hero-image-wrap::before { background: linear-gradient(90deg, rgba(6,20,22,0.94) 0%, rgba(6,20,22,0.82) 34%, rgba(6,20,22,0.25) 60%, rgba(6,20,22,0) 74%), linear-gradient(180deg, rgba(6,20,22,0) 56%, rgba(6,20,22,1) 80%); }
+      .hero-full .hero-content { justify-content: flex-start; padding: var(--space-8) var(--space-4) var(--space-6); }
+      .hero-full .hero-content > .hero-kicker,
+      .hero-full .hero-content > .hero-title,
+      .hero-full .hero-content > .hero-body { max-width: 62%; }
+      .hero-full .hero-title { font-size: clamp(1.75rem, 7.6vw, 2.4rem); line-height: 1.06; text-shadow: 0 1px 14px rgba(0,0,0,0.55); }
+      .hero-full .hero-body { font-size: 0.92rem; line-height: 1.5; }
+      .hero-full .hero-promises { margin-top: auto; margin-bottom: var(--space-4); }
     }
   </style>
 </head>
