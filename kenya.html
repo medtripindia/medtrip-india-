@@ -900,6 +900,25 @@
       .hero-full .hero-body { font-size: var(--text-base); }
       .hero-full .hero-promises { margin-top: var(--space-2); }
     }
+    /* Top bar blends into the dark hero while the hero is on screen */
+    header { transition: background-color 250ms ease, border-color 250ms ease, box-shadow 250ms ease; }
+    header.over-hero { background: #061416; border-bottom-color: rgba(255,255,255,0.06); box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+    header.over-hero .brand-title { color: #fff; }
+    header.over-hero .brand-sub { color: rgba(255,255,255,0.62); }
+    header.over-hero .nav-links a { color: rgba(255,255,255,0.78); }
+    header.over-hero .nav-links a:hover { color: #fff; }
+    header.over-hero .nav-links a.nav-cta { color: #fff !important; }
+    header.over-hero .theme-toggle { color: #fff; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.22); }
+    /* Soft curved bottom edge on the hero */
+    .hero-full .hero-split { border-radius: 0 0 28px 28px; }
+    @media (min-width: 768px) { .hero-full .hero-split { border-radius: 0 0 40px 40px; } }
+    /* Floating WhatsApp button hides while the hero (which has its own WhatsApp button) is on screen */
+    .whatsapp-float { transition: opacity 250ms ease, transform 250ms ease; }
+    body.hero-in-view .whatsapp-float { opacity: 0; transform: translateY(12px); pointer-events: none; }
+    @media (max-width: 767px) {
+      .hero-promises { font-size: 0.72rem; }
+      .hero-promises span { padding: 0 var(--space-1); white-space: nowrap; }
+    }
   </style>
 </head>
   <body>
@@ -1565,5 +1584,21 @@ document.querySelectorAll('.video-card[data-youtube-id]').forEach(function(card)
 });
 </script>
 
+<script>
+// Dark top bar and hidden floating button while the hero is on screen
+(function(){
+  var header = document.querySelector('header');
+  var hero = document.querySelector('.hero-full');
+  if (!header || !hero) return;
+  var update = function(){
+    var onHero = hero.getBoundingClientRect().bottom > header.offsetHeight + 80;
+    header.classList.toggle('over-hero', onHero);
+    document.body.classList.toggle('hero-in-view', onHero);
+  };
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+})();
+</script>
 </body>
 </html>
