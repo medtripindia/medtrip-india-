@@ -866,25 +866,21 @@
       .whatsapp-button::before { animation: none; display: none; }
     }
 
-    /* Full-screen photo hero */
-    .hero-full .hero-split { display: block; position: relative; min-height: min(86vh, 760px); max-width: none; overflow: hidden; }
-    .hero-full .hero-image-wrap { position: absolute; inset: 0; height: 100%; min-height: 0; z-index: 0; border: 0; background: #061416; }
-    .hero-full .hero-image-wrap img { width: 100%; height: auto; margin-top: -20%; object-fit: cover; opacity: 1; }
-    .hero-full .hero-image-wrap::before { content: ''; display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; background: linear-gradient(180deg, rgba(6,20,22,0.10) 0%, rgba(6,20,22,0.06) 36%, rgba(6,20,22,0.86) 56%, rgba(6,20,22,1) 68%); }
-    @media (min-width: 768px) {
-      .hero-full .hero-split { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); background: #061416; }
-      .hero-full .hero-image-wrap { position: relative; inset: auto; grid-column: 2; grid-row: 1; height: 100%; }
-      .hero-full .hero-image-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; margin-top: 0; object-fit: cover; object-position: 50% 30%; }
-      .hero-full .hero-image-wrap::before { background: linear-gradient(90deg, rgba(6,20,22,1) 0%, rgba(6,20,22,0.55) 12%, rgba(6,20,22,0) 30%), linear-gradient(180deg, rgba(6,20,22,0) 74%, rgba(6,20,22,1) 90%); }
-    }
-    .hero-full .hero-content { position: relative; z-index: 2; min-height: min(86vh, 760px); display: flex; flex-direction: column; justify-content: flex-end; max-width: none; padding: var(--space-16) max(var(--space-4), calc((100vw - var(--content-default)) / 2 + var(--space-4))) var(--space-8); background: none; }
-    .hero-full .hero-content > * { max-width: 40rem; }
+    /* Side-by-side photo hero: text on the left, patient photo on the right */
+    .hero-full .hero-split { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); max-width: none; min-height: 0; overflow: hidden; background: #061416; }
+    .hero-full .hero-image-wrap { grid-area: 1 / 1; position: relative; inset: auto; height: auto; min-height: 0; z-index: 0; border: 0; }
+    .hero-full .hero-image-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; margin: 0; object-fit: cover; object-position: 100% 30%; opacity: 1; }
+    .hero-full .hero-image-wrap::before { content: ''; display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; background: linear-gradient(90deg, rgba(6,20,22,0.92) 0%, rgba(6,20,22,0.78) 36%, rgba(6,20,22,0.2) 50%, rgba(6,20,22,0) 58%), linear-gradient(180deg, rgba(6,20,22,0) 78%, rgba(6,20,22,1) 100%); }
+    .hero-full .hero-content { grid-area: 1 / 1; position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; max-width: none; min-height: clamp(380px, 54vh, 480px); padding: var(--space-6) 0 var(--space-5) var(--space-4); background: none; }
+    .hero-full .hero-content > * { max-width: 50%; }
+    .hero-full .hero-bottom { position: relative; z-index: 2; padding: var(--space-2) var(--space-4) var(--space-6); }
     .hero-full .hero-kicker { color: rgba(255,255,255,0.82); }
-    .hero-full .hero-title { color: #fff; font-size: clamp(2.3rem, 8.6vw, 4rem); line-height: 1.04; text-wrap: balance; }
+    .hero-full .hero-title { color: #fff; font-size: clamp(1.6rem, 6.9vw, 2.4rem); line-height: 1.06; text-wrap: balance; text-shadow: 0 1px 14px rgba(0,0,0,0.5); }
+    .hero-full .hero-title br { display: none; }
     .hero-full .hero-highlight { display: block; background: none; -webkit-background-clip: border-box; color: #8fe3d4; margin-top: 0.15em; }
-    .hero-full .hero-body { color: rgba(255,255,255,0.9); opacity: 1; }
+    .hero-full .hero-body { color: rgba(255,255,255,0.9); opacity: 1; font-size: 0.92rem; line-height: 1.5; margin-bottom: 0; }
     .hero-full .hero-body .source-link { color: #fff; }
-    .hero-promises { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: var(--space-5); font-size: var(--text-xs); font-weight: 600; line-height: 1.3; color: #fff; text-align: center; }
+    .hero-promises { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: var(--space-4); font-size: var(--text-xs); font-weight: 600; line-height: 1.3; color: #fff; text-align: center; }
     .hero-promises span { padding: 0 var(--space-2); display: flex; align-items: center; justify-content: center; }
     .hero-promises span + span { border-left: 1px solid rgba(255,255,255,0.35); }
     .hero-full .hero-actions { margin-bottom: 0; }
@@ -893,21 +889,15 @@
     .hero-full .btn-secondary { background: rgba(255,255,255,0.14); color: #fff; border-color: rgba(255,255,255,0.5); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
     .hero-full .btn-secondary:hover { background: rgba(255,255,255,0.24); }
     @media (min-width: 768px) {
-      .hero-full .hero-content { grid-column: 1; grid-row: 1; justify-content: center; padding-right: var(--space-6); padding-block: var(--space-10); }
+      .hero-full .hero-split { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); grid-template-rows: 1fr auto; min-height: min(80vh, 720px); }
+      .hero-full .hero-image-wrap { grid-area: 1 / 2 / 3 / 3; }
+      .hero-full .hero-image-wrap::before { background: linear-gradient(90deg, rgba(6,20,22,1) 0%, rgba(6,20,22,0) 24%), linear-gradient(180deg, rgba(6,20,22,0) 80%, rgba(6,20,22,0.7) 100%); }
+      .hero-full .hero-content { grid-area: 1 / 1; justify-content: flex-end; min-height: 0; padding: var(--space-12) var(--space-6) var(--space-5) max(var(--space-4), calc((100vw - var(--content-default)) / 2 + var(--space-4))); }
+      .hero-full .hero-content > *, .hero-full .hero-bottom > * { max-width: 36rem; }
+      .hero-full .hero-bottom { grid-area: 2 / 1; padding: 0 var(--space-6) var(--space-12) max(var(--space-4), calc((100vw - var(--content-default)) / 2 + var(--space-4))); }
       .hero-full .hero-title { font-size: clamp(2.2rem, 4.3vw, 3.7rem); }
-    }
-    @media (max-width: 767px) {
-      /* Phone: text on the left, man on the right, side by side */
-      .hero-full .hero-split, .hero-full .hero-content { min-height: max(80vh, 640px); }
-      .hero-full .hero-image-wrap img { width: 100%; height: 100%; margin-top: 0; object-fit: cover; object-position: 78% 0%; }
-      .hero-full .hero-image-wrap::before { background: linear-gradient(90deg, rgba(6,20,22,0.94) 0%, rgba(6,20,22,0.82) 34%, rgba(6,20,22,0.25) 60%, rgba(6,20,22,0) 74%), linear-gradient(180deg, rgba(6,20,22,0) 56%, rgba(6,20,22,1) 80%); }
-      .hero-full .hero-content { justify-content: flex-start; padding: var(--space-8) var(--space-4) var(--space-6); }
-      .hero-full .hero-content > .hero-kicker,
-      .hero-full .hero-content > .hero-title,
-      .hero-full .hero-content > .hero-body { max-width: 62%; }
-      .hero-full .hero-title { font-size: clamp(1.75rem, 7.6vw, 2.4rem); line-height: 1.06; text-shadow: 0 1px 14px rgba(0,0,0,0.55); }
-      .hero-full .hero-body { font-size: 0.92rem; line-height: 1.5; }
-      .hero-full .hero-promises { margin-top: auto; margin-bottom: var(--space-4); }
+      .hero-full .hero-body { font-size: var(--text-base); }
+      .hero-full .hero-promises { margin-top: var(--space-2); }
     }
   </style>
 </head>
@@ -961,6 +951,11 @@
           <p class="hero-body">
             Send your X-ray on WhatsApp and get a <a class="source-link" href="#price">free quote</a> today.
           </p>
+        </div>
+        <div class="hero-image-wrap">
+          <img src="kenyan-man-knee-pain-hero.webp" alt="Older Kenyan man at home holding his painful knee" width="1678" height="937" fetchpriority="high" />
+        </div>
+        <div class="hero-bottom">
           <div class="hero-promises">
             <span>Robotic surgery</span>
             <span>NABH-accredited</span>
@@ -973,11 +968,6 @@
             </a>
             <a class="btn-secondary" href="#price">See pricing</a>
           </div>
-        </div>
-        <div class="hero-image-wrap">
-          <picture>
-            <img src="kenyan-man-knee-pain-hero.webp" alt="Older Kenyan man at home holding his painful knee" width="572" height="1024" fetchpriority="high" />
-          </picture>
         </div>
       </div>
     </section>
