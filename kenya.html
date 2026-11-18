@@ -38,7 +38,7 @@
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
@@ -370,6 +370,12 @@
     }
     .founder-quote { font-family: 'Instrument Serif', 'Times New Roman', serif; font-size: var(--text-lg); margin-bottom: var(--space-4); }
     .founder-meta { font-size: var(--text-sm); color: var(--color-text-muted); }
+    /* Doctor-led card with founder photo (Why section) - same look as other cards */
+    .doc-head { display: flex; align-items: center; gap: 12px; margin-bottom: var(--space-3); }
+    .doc-avatar { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; object-position: center 16%; flex-shrink: 0; background: var(--color-primary-highlight); box-shadow: 0 0 0 3px var(--color-surface), 0 0 0 5px color-mix(in oklch, var(--color-primary) 35%, transparent); }
+    .doc-name { font-family: 'Instrument Serif', serif; font-size: 1.3rem; line-height: 1.1; color: var(--color-text); }
+    .doc-role { font-size: 0.72rem; color: var(--color-primary-active); margin-top: 2px; font-weight: 500; }
+    [data-theme="dark"] .doc-role { color: var(--color-primary); }
     .badge-pill { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.18rem 0.6rem; border-radius: var(--radius-full); background: var(--color-surface-offset); font-size: var(--text-xs); margin-right: 0.25rem; margin-top: 0.25rem; }
     .partner-grid { display: grid; gap: var(--space-5); }
     @media (min-width: 640px) { .partner-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -737,6 +743,30 @@
     .quickfacts-item .qf-note { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.4; }
 
     .video-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    /* Side-swipe slider (packages + videos) */
+    .slider { position: relative; }
+    .slider-track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; overscroll-behavior-x: contain; padding: 10px 4px 22px; margin: -10px -4px 0; scroll-padding-inline: 4px; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 0, #000 86%, transparent 100%); mask-image: linear-gradient(90deg, #000 0, #000 86%, transparent 100%); transition: -webkit-mask-image 300ms; }
+    .slider-track::-webkit-scrollbar { display: none; }
+    .slider.at-end .slider-track, .slider.no-overflow .slider-track { -webkit-mask-image: none; mask-image: none; }
+    .slider-track > * { flex: 0 0 84%; min-width: 0; scroll-snap-align: start; }
+    .video-slider .slider-track > * { flex-basis: 82%; }
+    .slider-bar { display: flex; align-items: center; gap: var(--space-4); margin-top: 4px; }
+    .slider.no-overflow .slider-bar { display: none; }
+    .slider-progress { flex: 1; height: 3px; border-radius: 3px; background: color-mix(in oklch, var(--color-primary) 14%, var(--color-divider)); overflow: hidden; }
+    .slider-progress span { display: block; height: 100%; width: 30%; border-radius: 3px; background: var(--color-primary); transition: transform 160ms linear, width 200ms; }
+    .slider-nav { display: flex; gap: 10px; }
+    .slider-btn { width: 44px; height: 44px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; border: 1px solid color-mix(in oklch, var(--color-primary) 30%, var(--color-divider)); background: var(--color-surface); color: var(--color-primary-active); box-shadow: 0 4px 14px rgba(1,105,111,0.10); cursor: pointer; transition: background 200ms, color 200ms, transform 200ms, opacity 200ms, box-shadow 200ms; }
+    .slider-btn:hover:not(:disabled) { background: var(--color-primary); color: #fff; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(1,105,111,0.22); }
+    .slider-btn:disabled { opacity: 0.35; cursor: default; box-shadow: none; }
+    [data-theme="dark"] .slider-btn { color: var(--color-primary); }
+    @media (min-width: 640px) {
+      .slider-track > *, .video-slider .slider-track > * { flex-basis: calc((100% - 16px) / 2); }
+    }
+    @media (min-width: 1024px) {
+      .slider-track { gap: 20px; }
+      .slider-track > *, .video-slider .slider-track > * { flex-basis: calc((100% - 40px) / 3); }
+    }
+    @media (prefers-reduced-motion: reduce) { .slider-track { scroll-behavior: auto; } }
     .video-card { border-radius: var(--radius-lg); overflow: hidden; background: var(--color-surface); border: 1px solid color-mix(in oklch, var(--color-border) 80%, transparent); box-shadow: var(--shadow-sm); display: block; transition: transform 220ms cubic-bezier(0.16,1,0.3,1), box-shadow 220ms cubic-bezier(0.16,1,0.3,1); }
     .video-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
     .video-card:hover .video-thumb img { transform: scale(1.06); }
@@ -783,6 +813,23 @@
     .how-card h3 { font-size: var(--text-base); margin-bottom: 0.1rem; }
     .how-card p { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.55; }
     .how-arrow { align-self: center; font-size: var(--text-lg); color: var(--color-primary); flex: 0 0 auto; }
+    /* How it works: short timeline steps */
+    .steps { list-style: none; padding: 0; margin: var(--space-6) 0 0; display: grid; }
+    .step { display: grid; grid-template-columns: 52px 1fr; gap: 16px; position: relative; padding-bottom: 18px; }
+    .step:last-child { padding-bottom: 0; }
+    .step:not(:last-child)::before { content: ''; position: absolute; left: 25px; top: 60px; bottom: 6px; width: 2px; background: repeating-linear-gradient(to bottom, var(--color-primary) 0 5px, transparent 5px 11px); opacity: 0.5; }
+    .step-dot { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #01696f, #0c4e54); color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 6px color-mix(in oklch, var(--color-primary) 13%, transparent), 0 8px 20px rgba(1,105,111,0.25); }
+    .step-body { position: relative; overflow: hidden; background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: 20px; padding: 14px 18px 15px; box-shadow: var(--shadow-sm); transition: transform 220ms cubic-bezier(0.16,1,0.3,1), box-shadow 220ms; }
+    .step-body:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .step-num { position: absolute; right: 12px; top: -4px; font-family: 'Instrument Serif', serif; font-size: 3.6rem; line-height: 1; color: color-mix(in oklch, var(--color-primary) 15%, transparent); pointer-events: none; }
+    .step-body h3 { font-size: var(--text-base); margin: 0 0 3px; position: relative; }
+    .step-body p { font-size: var(--text-sm); color: var(--color-text-muted); margin: 0; line-height: 1.5; position: relative; max-width: 30ch; }
+    @media (min-width: 768px) {
+      .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+      .step { grid-template-columns: 1fr; gap: 18px; padding-bottom: 0; }
+      .step:not(:last-child)::before { left: 70px; right: -14px; top: 25px; bottom: auto; width: auto; height: 2px; background: repeating-linear-gradient(to right, var(--color-primary) 0 5px, transparent 5px 11px); }
+      .step-body { padding: 18px 20px 20px; }
+    }
     @media (max-width: 780px) {
       .how-grid { flex-direction: column; }
       .how-arrow { transform: rotate(90deg); margin: -0.3rem 0; }
@@ -893,9 +940,9 @@
       .hero-full .hero-split { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); grid-template-rows: 1fr auto; min-height: min(80vh, 720px); }
       .hero-full .hero-image-wrap { grid-area: 1 / 2 / 3 / 3; }
       .hero-full .hero-image-wrap::before { background: linear-gradient(90deg, rgba(6,20,22,1) 0%, rgba(6,20,22,0) 24%), linear-gradient(180deg, rgba(6,20,22,0) 80%, rgba(6,20,22,0.7) 100%); }
-      .hero-full .hero-content { grid-area: 1 / 1; justify-content: flex-end; min-height: 0; padding: var(--space-12) var(--space-6) var(--space-5) max(var(--space-4), calc((100vw - var(--content-default)) / 2 + var(--space-4))); }
+      .hero-full .hero-content { grid-area: 1 / 1; justify-content: flex-end; min-height: 0; padding: var(--space-12) var(--space-6) var(--space-5) max(var(--gutter), calc((100vw - var(--content-default)) / 2 + var(--gutter))); }
       .hero-full .hero-content > *, .hero-full .hero-bottom > * { max-width: 36rem; }
-      .hero-full .hero-bottom { grid-area: 2 / 1; padding: 0 var(--space-6) var(--space-12) max(var(--space-4), calc((100vw - var(--content-default)) / 2 + var(--space-4))); }
+      .hero-full .hero-bottom { grid-area: 2 / 1; padding: 0 var(--space-6) var(--space-12) max(var(--gutter), calc((100vw - var(--content-default)) / 2 + var(--gutter))); }
       .hero-full .hero-title { font-size: clamp(2.2rem, 4.3vw, 3.7rem); }
       .hero-full .hero-body { font-size: var(--text-base); }
       .hero-full .hero-promises { margin-top: var(--space-2); }
@@ -919,11 +966,173 @@
       .hero-promises { font-size: 0.72rem; }
       .hero-promises span { padding: 0 var(--space-1); white-space: nowrap; }
     }
+    /* Premium hero: deep teal instead of near-black, top bar melts into it, bigger text that runs a little over the photo */
+    header.over-hero { background: #0e3436 !important; border-bottom: 0 !important; box-shadow: none !important; }
+    .hero-full .hero-split { background: linear-gradient(180deg, #0e3436 0%, #0b2b2d 60%, #092426 100%); }
+    .hero-full .hero-image-wrap::before { background: linear-gradient(90deg, rgba(14,52,54,0.9) 0%, rgba(14,52,54,0.72) 38%, rgba(14,52,54,0.25) 62%, rgba(14,52,54,0) 74%), linear-gradient(180deg, rgba(14,52,54,1) 0%, rgba(14,52,54,0.5) 8%, rgba(14,52,54,0) 22%, rgba(11,43,45,0) 76%, rgba(9,36,38,1) 100%); }
+    .hero-full .hero-content > * { max-width: 68%; }
+    .hero-full .hero-content > .hero-title { max-width: 72%; }
+    .hero-full .hero-title { font-size: clamp(2.1rem, 9.2vw, 3.1rem); line-height: 1.2; letter-spacing: 0.012em; word-spacing: 0.04em; text-shadow: 0 2px 18px rgba(0,0,0,0.6); }
+    .hero-full .hero-highlight { margin-top: 0.45em; }
+    .hero-full .hero-kicker { font-size: 0.8rem; color: #8fe3d4; }
+    .hero-full .hero-body { font-size: 1.08rem; text-shadow: 0 1px 10px rgba(0,0,0,0.5); }
+    @media (min-width: 768px) {
+      .hero-full .hero-image-wrap::before { background: linear-gradient(90deg, rgba(14,52,54,1) 0%, rgba(14,52,54,0.55) 18%, rgba(14,52,54,0) 40%), linear-gradient(180deg, rgba(14,52,54,1) 0%, rgba(14,52,54,0.4) 7%, rgba(14,52,54,0) 18%, rgba(9,36,38,0) 80%, rgba(9,36,38,0.75) 100%); }
+      .hero-full .hero-content, .hero-full .hero-bottom { margin-right: -9rem; }
+      .hero-full .hero-content > *, .hero-full .hero-bottom > *, .hero-full .hero-content > .hero-title { max-width: 42rem; }
+      .hero-full .hero-title { font-size: clamp(2.8rem, 5.4vw, 4.6rem); }
+      .hero-full .hero-body { font-size: 1.15rem; }
+    }
     /* Company name: the word India in a high-contrast display serif */
-    .brand-india { font-family: 'Bodoni Moda', 'Didot', 'Times New Roman', serif; font-weight: 400; font-size: 0.9em; letter-spacing: 0.01em; }
+    /* Top menu: calmer, more elegant links with a thin underline and a clear WhatsApp button */
+    @media (min-width: 768px) {
+      .nav-links { gap: clamp(0.85rem, 1.6vw, 1.75rem); font-size: 0.88rem; }
+      .nav-links a { white-space: nowrap; }
+      .nav-links a:not(.nav-cta) { position: relative; font-weight: 500; letter-spacing: 0.02em; padding: 0.35rem 0; transition: color 0.2s ease; }
+      .nav-links a:not(.nav-cta)::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px; border-radius: 2px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 0.25s ease; }
+      .nav-links a:not(.nav-cta):hover::after, .nav-links a.is-active::after { transform: scaleX(1); }
+      .nav-links a.is-active { color: var(--color-text); }
+      header.over-hero .nav-links a.is-active { color: #fff; }
+      .nav-links .nav-cta { display: inline-flex; align-items: center; gap: 0.45rem; margin-left: 0.5rem; padding: 0.55rem 1.15rem; font-size: 0.88rem; letter-spacing: 0.01em; box-shadow: 0 6px 18px rgba(1,105,111,0.25); transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
+      .nav-links .nav-cta:hover { opacity: 1; transform: translateY(-1px); box-shadow: 0 10px 24px rgba(1,105,111,0.32); }
+      .nav-cta-icon { width: 16px; height: 16px; flex: none; }
+      header.over-hero .nav-links a.nav-cta { background: #fff; color: #0e3436 !important; box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
+      header.over-hero .nav-links a.nav-cta .nav-cta-icon { color: #01696f; }
+    }
+    @media (min-width: 768px) and (max-width: 1180px) {
+      .brand-sub { display: none; }
+      .brand-title { white-space: nowrap; }
+      .nav-links { font-size: 0.82rem; }
+    }
+    @media (min-width: 768px) and (max-width: 940px) {
+      .nav-links { gap: 0.7rem; font-size: 0.78rem; margin-left: 1rem; }
+      .nav-links .nav-cta { padding: 0.5rem 0.85rem; margin-left: 0.2rem; }
+    }
+    /* Phone menu button (three lines) and the drop-down section menu */
+    .menu-toggle { display: none; }
+    @media (max-width: 767px) {
+      .mobile-nav-cta { margin-left: auto; }
+      .menu-toggle { display: inline-flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; width: 42px; height: 42px; flex: none; padding: 0; border-radius: 50%; border: 1px solid var(--color-divider); background: rgba(255,255,255,0.6); color: var(--color-text); cursor: pointer; }
+      .menu-toggle span { display: block; width: 18px; height: 1.6px; border-radius: 2px; background: currentColor; transition: transform 0.25s ease, opacity 0.2s ease; }
+      header.over-hero .menu-toggle { color: #fff; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.25); }
+      header.menu-open .menu-toggle span:nth-child(1) { transform: translateY(6.6px) rotate(45deg); }
+      header.menu-open .menu-toggle span:nth-child(2) { opacity: 0; }
+      header.menu-open .menu-toggle span:nth-child(3) { transform: translateY(-6.6px) rotate(-45deg); }
+      header.menu-open .nav-links { display: flex; flex-direction: column; align-items: stretch; gap: 0; position: absolute; top: calc(100% + 8px); left: 12px; right: 12px; padding: 0.5rem 1.25rem 1.25rem; border-radius: 22px; background: #f7f6f2; box-shadow: 0 18px 40px rgba(6,20,22,0.22); animation: menuIn 0.22s ease both; }
+      header.menu-open .nav-links a:not(.nav-cta) { display: flex; justify-content: space-between; align-items: center; padding: 0.95rem 0.15rem; font-family: 'Instrument Serif', serif; font-size: 1.45rem; letter-spacing: 0.01em; color: var(--color-text); border-bottom: 1px solid var(--color-divider); }
+      header.menu-open .nav-links a:not(.nav-cta)::after { content: '\2192'; font-family: 'Work Sans', sans-serif; font-size: 1rem; color: #01696f; }
+      header.menu-open .nav-links a.nav-cta { display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-top: 1.1rem; padding: 0.9rem 1rem; font-size: 1rem; background: #01696f; color: #fff !important; }
+      header.menu-open .nav-links .nav-cta-icon { width: 18px; height: 18px; }
+      header.over-hero.menu-open .nav-links { background: #12393b; box-shadow: 0 18px 40px rgba(0,0,0,0.4); }
+      header.over-hero.menu-open .nav-links a:not(.nav-cta) { color: #fff; border-bottom-color: rgba(255,255,255,0.12); }
+      header.over-hero.menu-open .nav-links a:not(.nav-cta)::after { color: #8fe3d4; }
+      header.over-hero.menu-open .nav-links a.nav-cta { background: #fff; color: #0e3436 !important; }
+      @keyframes menuIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+    }
+    /* Hospital photo collage (TMTC-style mixed grid with rounded tiles) */
+    .hospital-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 112px; gap: 10px; margin-top: var(--space-4); }
+    .hospital-gallery figure { position: relative; margin: 0; overflow: hidden; border-radius: 18px; background: #e6eeed; }
+    .hospital-gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .hospital-gallery figure:hover img { transform: scale(1.04); }
+    .hospital-gallery figcaption { position: absolute; left: 8px; bottom: 8px; padding: 0.25rem 0.65rem; border-radius: 999px; font-size: 0.72rem; font-weight: 600; color: #fff; background: rgba(6,30,32,0.55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+    .hospital-gallery .hg-big { grid-column: span 2; grid-row: span 2; }
+    .hospital-gallery .hg-tall { grid-row: span 2; }
+    .hospital-gallery .hg-wide { grid-column: span 2; grid-row: span 2; }
+    @media (min-width: 768px) {
+      .hospital-gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 160px; gap: 14px; }
+      .hospital-gallery .hg-wide { grid-column: span 2; grid-row: span 2; }
+      .hospital-gallery .hg-wide ~ figure { grid-row: span 2; }
+      .hospital-gallery figure { border-radius: 22px; }
+      .hospital-gallery figcaption { font-size: 0.8rem; left: 12px; bottom: 12px; }
+    }
+    /* Company name: "India" in the same font, italic, in brand teal (mint on the dark bar) */
+    .brand-india { font-style: italic; color: #01696f; }
+    header.over-hero .brand-india, [data-theme="dark"] .brand-india { color: #8fe3d4; }
     /* Logo icon: the founder's own logo image, cropped to the circle */
     .brand-mark { background: none; overflow: hidden; box-shadow: none; }
     .brand-mark img { width: 100%; height: 100%; max-width: none; object-fit: cover; transform: scale(1.3); transform-origin: 49.6% 49%; }
+    /* ===== Premium polish layer ===== */
+    :root { --content-default: 1160px; --gutter: 1.1rem; }
+    @media (min-width: 768px) { :root { --gutter: 1.25rem; } }
+    @media (min-width: 1024px) { :root { --gutter: 2rem; } }
+    @media (min-width: 1200px) { :root { --gutter: 2.5rem; } }
+    /* Why cards: 2 x 2 on tablet, 4 in a row on laptop (never one alone) */
+    @media (min-width: 600px) { #why .reveal-stagger { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+    @media (min-width: 1024px) { #why .reveal-stagger { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
+    /* Hospital card uses full width; shorter photo on tablet */
+    #hospital .partner-card { max-width: none !important; }
+    @media (min-width: 600px) and (max-width: 899px) { #hospital .partner-photo { aspect-ratio: 16 / 10; } }
+    .container { padding-inline: var(--gutter); }
+
+    /* Sections: no hard lines, more air, soft tinted bands */
+    main > section:not(.hero) { border-top: 0; padding-block: clamp(2.6rem, 1.6rem + 3.4vw, 5rem); }
+    .brand-sub { white-space: nowrap; }
+    @media (min-width: 768px) and (max-width: 1259px) { .brand-sub { display: none; } }
+    #price, #stories { background: linear-gradient(180deg, color-mix(in oklch, var(--color-primary) 6%, var(--color-bg)) 0%, color-mix(in oklch, var(--color-primary) 3%, var(--color-bg)) 100%); }
+
+    /* Headings: elegant serif with one teal italic word */
+    .section-heading { font-family: 'Instrument Serif', 'Times New Roman', serif; font-weight: 400; font-size: clamp(2.15rem, 1.5rem + 2.5vw, 3.5rem); line-height: 1.04; letter-spacing: -0.01em; margin-bottom: var(--space-4); text-wrap: balance; }
+    .section-heading em, .cost-title-accent { font-style: italic; color: var(--color-primary-active); }
+    [data-theme="dark"] .section-heading em { color: var(--color-primary); }
+    .doctors-heading { font-family: 'Instrument Serif', 'Times New Roman', serif; font-weight: 400; font-size: clamp(1.65rem, 1.3rem + 1.2vw, 2.25rem); letter-spacing: -0.005em; margin-top: clamp(2.5rem, 2rem + 2vw, 4rem); }
+    .section-kicker { display: inline-flex; align-items: center; gap: 10px; color: var(--color-primary-active); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.18em; margin-bottom: var(--space-3); }
+    .section-kicker::before { content: ''; width: 26px; height: 1px; background: currentColor; opacity: 0.7; }
+    [data-theme="dark"] .section-kicker { color: var(--color-primary); }
+    .section-intro { font-size: 1.05rem; line-height: 1.6; max-width: 54ch; }
+
+    /* Cards: softer corners, one shared look */
+    .card, .cost-card, .video-card, .partner-card, .route-card, .stats-box, .doctor-card { border-radius: 22px; }
+    .card { padding: 22px; }
+    .why-icon { width: 52px; height: 52px; color: var(--color-primary-active); background: color-mix(in oklch, var(--color-primary) 12%, var(--color-surface)); }
+    [data-theme="dark"] .why-icon { color: var(--color-primary); }
+    .quickfacts-item { background: var(--color-surface); border: 1px solid var(--color-divider); box-shadow: var(--shadow-sm); border-radius: 20px; padding: 18px 16px; }
+
+    /* Doctors: photo inset in the card, serif names, full width on laptop */
+    .doctor-card { padding: 7px 7px 14px; transition: transform 220ms cubic-bezier(0.16,1,0.3,1), box-shadow 220ms; }
+    .doctor-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .doctor-card > img, .doctor-photo-zoom { border-radius: 16px; overflow: hidden; }
+    .doctor-name { font-family: 'Instrument Serif', 'Times New Roman', serif; font-weight: 400; font-size: 1.22rem; padding: 10px 8px 0; line-height: 1.15; }
+    .doctor-role { padding: 3px 8px 0; }
+    @media (min-width: 900px) {
+      .doctors-grid { max-width: none; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+      .doctor-name { font-size: 1.4rem; }
+    }
+
+    /* Hospital: photo + details side by side on laptop */
+    .partner-name { font-family: 'Instrument Serif', 'Times New Roman', serif; font-weight: 400; font-size: 1.5rem; line-height: 1.1; }
+    @media (min-width: 900px) {
+      #hospital .partner-card { max-width: none !important; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); grid-template-rows: auto auto auto auto 1fr; column-gap: var(--space-10); row-gap: var(--space-3); padding: 0; overflow: hidden; border-radius: 28px; }
+      #hospital .partner-photo { grid-column: 1; grid-row: 1 / span 5; margin: 0; border-radius: 0; aspect-ratio: auto; height: 100%; min-height: 460px; }
+      #hospital .partner-card > :not(.partner-photo) { grid-column: 2; padding-right: var(--space-10); }
+      #hospital .partner-card-top { margin-top: var(--space-10); }
+      #hospital .partner-name { font-size: 2.1rem; }
+      #hospital .partner-desc { font-size: var(--text-base); }
+      #hospital .nabh-badge-row { padding-bottom: var(--space-10); }
+    }
+
+    /* FAQ: heading left, questions right on laptop */
+    details.faq-item { border-radius: 18px; margin-bottom: 10px; transition: border-color 200ms, background 200ms; }
+    summary.faq-q { font-size: 1rem; padding: 18px 20px; }
+    summary.faq-q::after { width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; line-height: 1; background: color-mix(in oklch, var(--color-primary) 10%, var(--color-surface)); }
+    @media (min-width: 900px) {
+      #faq .container { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr); grid-template-rows: auto auto 1fr; column-gap: var(--space-16); align-items: start; }
+      #faq .section-kicker { grid-column: 1; grid-row: 1; justify-self: start; }
+      #faq .section-heading { grid-column: 1; grid-row: 2; }
+      #faq .container > .reveal { grid-column: 2; grid-row: 1 / span 3; max-width: none !important; }
+    }
+
+    /* Final call-to-action: matches the dark hero, soft rings */
+    .cta-band { position: relative; overflow: hidden; border-radius: 32px; padding: clamp(2.75rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem); background: radial-gradient(90% 120% at 100% 0%, rgba(1,105,111,0.85) 0%, rgba(1,105,111,0) 60%), linear-gradient(150deg, #0e3436 0%, #0b2b2d 70%, #092426 100%); box-shadow: 0 30px 60px rgba(14,52,54,0.22); }
+    .cta-band::before { content: ''; position: absolute; right: -140px; bottom: -220px; width: 440px; height: 440px; border-radius: 50%; border: 1px solid rgba(143,227,212,0.2); box-shadow: 0 0 0 46px rgba(143,227,212,0.035), 0 0 0 100px rgba(143,227,212,0.025); pointer-events: none; }
+    .cta-band > * { position: relative; }
+    .cta-band h2 { font-size: clamp(2.3rem, 1.6rem + 2.8vw, 3.8rem); line-height: 1.04; font-weight: 400; }
+    .cta-band h2 em { font-style: italic; color: #8fe3d4; }
+    .cta-band .section-kicker { color: #8fe3d4 !important; }
+    @media (max-width: 480px) {
+      .route-meta { flex-direction: column; gap: 4px; }
+      .route-meta > span:nth-child(2) { display: none; }
+    }
+
   </style>
 </head>
   <body>
@@ -942,7 +1151,7 @@
           <div class="brand-sub">Care coordination, Kenya to India</div>
         </div>
       </a>
-      <nav class="nav-links" aria-label="Primary">
+      <nav class="nav-links" id="site-menu" aria-label="Primary">
         <a href="#why">Why India</a>
         <a href="#price">Cost</a>
         <a href="#facts">Visa</a>
@@ -950,9 +1159,10 @@
         <a href="#hospital">Hospital</a>
         <a href="#how">How it works</a>
         <a href="#faq">FAQ</a>
-        <a class="nav-cta" data-meta-contact href="https://wa.me/918866172776?text=Hi%20MedTrip%20India%2C%20I%27m%20in%20Kenya%20and%20want%20a%20free%20knee%2Fhip%20case%20review." target="_blank" rel="noopener noreferrer">Free case review</a>
+        <a class="nav-cta" data-meta-contact href="https://wa.me/918866172776?text=Hi%20MedTrip%20India%2C%20I%27m%20in%20Kenya%20and%20want%20a%20free%20knee%2Fhip%20case%20review." target="_blank" rel="noopener noreferrer"><svg class="nav-cta-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>Free case review</a>
       </nav>
       <a class="mobile-nav-cta" data-meta-contact href="https://wa.me/918866172776?text=Hi%20MedTrip%20India%2C%20I%27m%20in%20Kenya%20and%20want%20a%20free%20knee%2Fhip%20case%20review." target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><span></span><span></span><span></span></button>
       <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="5" />
@@ -998,7 +1208,7 @@
       <div class="container">
         <div class="stats-snapshot reveal">
           <div class="section-kicker" style="margin-bottom:0;">Kenyans already do this</div>
-          <h2 id="stats-title" class="section-heading" style="margin-top:var(--space-2);">Medical travel to India from Kenya is common</h2>
+          <h2 id="stats-title" class="section-heading" style="margin-top:var(--space-2);">Medical travel to India from Kenya is <em>common</em></h2>
           <p class="section-intro" style="margin-bottom:0;">Not something unusual — thousands make this trip every year. See <a class="source-link" href="#how">how it works</a>.</p>
           <div class="stats-snapshot-grid">
             <div class="stats-box">
@@ -1017,7 +1227,7 @@
 
     <section id="why" aria-labelledby="why-title">
       <div class="container">
-        <h2 id="why-title" class="section-heading" style="margin-bottom:var(--space-5);">Why India and Us</h2>
+        <h2 id="why-title" class="section-heading" style="margin-bottom:var(--space-5);">Why India <em>and Us</em></h2>
         <div class="reveal-stagger" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4);">
           <article class="card">
             <div class="why-icon"><img src="icon-robot.png" alt="" width="34" height="34" /></div>
@@ -1025,19 +1235,27 @@
             <p>Advanced robotic knee and hip surgery, done by SGVP using a robotic arm for precision.</p>
           </article>
           <article class="card">
+            <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor"/></svg></div>
             <h3>Lower cost, same quality</h3>
             <p>Same modern surgery, much lower price than private care at home.</p>
           </article>
-          <article class="card">
+          <article class="card card-doctor">
+            <div class="doc-head">
+              <img class="doc-avatar" src="dr-jaydeep-founder-medtrip-india.jpg" alt="Dr. Jaydeep, medical doctor and founder of MedTrip India" width="296" height="370" loading="lazy" />
+              <div>
+                <div class="doc-name">Dr. Jaydeep</div>
+                <div class="doc-role">Founder · Medical doctor</div>
+              </div>
+            </div>
             <h3>Doctor-led</h3>
             <p>Founded by a doctor. Every step is medically guided, not just booked.</p>
           </article>
           <article class="card">
+            <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg></div>
             <h3>We handle everything</h3>
             <p>Visa letter, hospital coordination, airport pickup, all arranged for you.</p>
           </article>
         </div>
-        <p class="source-note">Founded and run by Dr. Jaydeep, a medical doctor.</p>
       </div>
     </section>
 
@@ -1051,7 +1269,8 @@
           </div>
         </div>
 
-        <div class="cost-grid reveal-stagger">
+        <div class="slider cost-slider">
+        <div class="slider-track reveal-stagger" aria-label="Treatment packages">
           <div class="cost-card cost-teal">
             <div class="cost-icon">
               <img src="icon-knee.png" alt="" width="50" height="50" />
@@ -1100,6 +1319,14 @@
             </ul>
           </div>
         </div>
+        <div class="slider-bar">
+          <div class="slider-progress" aria-hidden="true"><span></span></div>
+          <div class="slider-nav">
+            <button class="slider-btn prev" type="button" aria-label="Previous package"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+            <button class="slider-btn next" type="button" aria-label="Next package"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+          </div>
+        </div>
+        </div>
 
         <p class="cost-disclaimer">Estimate only. Final price after X-ray review. It depends on your medical condition, implant selection and the hospital's final quotation.</p>
         <div style="text-align:center;margin-top:var(--space-6);">
@@ -1111,7 +1338,7 @@
     <section id="facts" aria-labelledby="facts-title">
       <div class="container">
         <div class="section-kicker">Good to know</div>
-        <h2 id="facts-title" class="section-heading">Visa, stay &amp; treatment</h2>
+        <h2 id="facts-title" class="section-heading">Visa, stay <em>&amp; treatment</em></h2>
         <div class="quickfacts-grid reveal-stagger">
           <div class="quickfacts-item">
             <div class="qf-label">Visa</div>
@@ -1148,7 +1375,7 @@
     <section id="flight" aria-labelledby="flight-title">
       <div class="container">
         <div class="section-kicker">Travel route</div>
-        <h2 id="flight-title" class="section-heading">Nairobi to India (Ahmedabad)</h2>
+        <h2 id="flight-title" class="section-heading">Nairobi to <em>India</em> (Ahmedabad)</h2>
         <p class="section-intro">A simple route for your hospital visit in India.</p>
         <div class="route-card reveal">
           <div class="route-visual">
@@ -1178,7 +1405,7 @@
     <section id="hospital" aria-labelledby="hospital-title">
       <div class="container">
         <div class="section-kicker">Hospital</div>
-        <h2 id="hospital-title" class="section-heading">Where you'll be treated</h2>
+        <h2 id="hospital-title" class="section-heading">Where you'll be <em>treated</em></h2>
         <div class="partner-card reveal" style="max-width:640px;">
           <div class="partner-photo">
             <img src="sgvp-hospital-ahmedabad.jpg" alt="SGVP Holistic Hospital building, Ahmedabad" width="676" height="693" loading="lazy" />
@@ -1204,6 +1431,18 @@
             <p class="nabh-caption">NABH is India's national hospital accreditation board — it certifies patient safety and quality of care.</p>
           </div>
         </div>
+
+        <h3 class="doctors-heading">Inside the hospital</h3>
+        <div class="hospital-gallery reveal">
+          <figure class="hg-big"><img src="sgvp-hospital-suite-room.jpg" alt="Suite room at SGVP Holistic Hospital with bed, TV and large window" width="1000" height="471" loading="lazy" /><figcaption>Suite room</figcaption></figure>
+          <figure class="hg-tall"><img src="sgvp-hospital-icu-doctors.jpg" alt="Doctors reviewing a patient file in the ICU at SGVP Holistic Hospital" width="830" height="790" loading="lazy" /><figcaption>ICU care</figcaption></figure>
+          <figure><img src="sgvp-hospital-super-deluxe-room.jpg" alt="Super deluxe patient room with bed and sofa at SGVP Holistic Hospital" width="1000" height="506" loading="lazy" /><figcaption>Super deluxe room</figcaption></figure>
+          <figure><img src="sgvp-hospital-twin-sharing-room.jpg" alt="Twin sharing patient room at SGVP Holistic Hospital" width="1000" height="487" loading="lazy" /><figcaption>Twin sharing room</figcaption></figure>
+          <figure class="hg-wide"><img src="sgvp-hospital-opd-corridor.jpg" alt="Busy outpatient (OPD) corridor with nurses at SGVP Holistic Hospital" width="1000" height="673" loading="lazy" /><figcaption>Outpatient (OPD) area</figcaption></figure>
+          <figure><img src="sgvp-hospital-nursing-station.jpg" alt="Nursing station and ward corridor at SGVP Holistic Hospital" width="1000" height="416" loading="lazy" /><figcaption>Nursing station</figcaption></figure>
+          <figure><img src="sgvp-hospital-pathology-lab.jpg" alt="In-house pathology lab at SGVP Holistic Hospital" width="1000" height="619" loading="lazy" /><figcaption>In-house lab</figcaption></figure>
+        </div>
+        <p class="source-note">Photos: SGVP Holistic Hospital, Ahmedabad.</p>
 
         <h3 class="doctors-heading">Our surgeons</h3>
         <div class="doctors-grid reveal-stagger">
@@ -1251,8 +1490,9 @@
     <section id="stories" aria-labelledby="stories-title">
       <div class="container">
         <div class="section-kicker">Real patients</div>
-        <h2 id="stories-title" class="section-heading">Hear from patients treated at SGVP</h2>
-        <div class="video-grid reveal-stagger">
+        <h2 id="stories-title" class="section-heading">Hear from patients <em>treated at SGVP</em></h2>
+        <div class="slider video-slider">
+        <div class="slider-track reveal-stagger" aria-label="Patient videos">
           <div class="video-card" data-youtube-id="4yQlhCP_9dU">
             <div class="video-thumb">
               <img src="https://i.ytimg.com/vi/4yQlhCP_9dU/hqdefault.jpg" alt="Kenyan patient testimonial video" width="480" height="360" loading="lazy" />
@@ -1282,49 +1522,43 @@
             <div class="video-caption">A patient describes their treatment journey in Ahmedabad.</div>
           </div>
         </div>
+        <div class="slider-bar">
+          <div class="slider-progress" aria-hidden="true"><span></span></div>
+          <div class="slider-nav">
+            <button class="slider-btn prev" type="button" aria-label="Previous video"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+            <button class="slider-btn next" type="button" aria-label="Next video"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+          </div>
+        </div>
+        </div>
       </div>
     </section>
 
     <section id="how" aria-labelledby="how-title">
       <div class="container">
         <div class="section-kicker">Steps</div>
-        <h2 id="how-title" class="section-heading">How it works</h2>
+        <h2 id="how-title" class="section-heading">How it <em>works</em></h2>
         <p class="section-intro">A simple path from your first X-ray to a clear treatment plan. We handle the details, so you can focus on your health.</p>
-        <div class="how-grid reveal">
-          <div class="how-card">
-            <div class="how-num">1</div>
-            <div class="how-icon">
-              <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M16 3C8.82 3 3 8.82 3 16c0 2.3.6 4.46 1.65 6.33L3 29l6.84-1.62A13 13 0 0 0 16 29c7.18 0 13-5.82 13-13S23.18 3 16 3zm5.95 17.75c-.33-.16-1.93-.95-2.23-1.06-.3-.1-.52-.16-.74.17-.22.33-.85 1.06-1.04 1.28-.19.22-.38.25-.71.08-.33-.17-1.38-.51-2.63-1.62-.97-.87-1.63-1.94-1.82-2.27-.19-.33-.02-.5.14-.67.15-.15.33-.38.5-.57.17-.2.22-.33.33-.55.1-.22.05-.42-.03-.58-.08-.17-.74-1.78-1.01-2.44-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.58.08-.88.42-.3.33-1.15 1.12-1.15 2.74s1.18 3.18 1.34 3.4c.17.22 2.32 3.54 5.62 4.97.79.34 1.4.54 1.88.69.79.25 1.51.22 2.08.13.63-.1 1.93-.79 2.2-1.55.28-.76.28-1.41.2-1.55-.08-.13-.3-.22-.63-.38z"/></svg>
-            </div>
-            <h3>Send X-ray</h3>
-            <p>Share your X-ray and a short note about your pain on WhatsApp. The first review is free.</p>
-          </div>
-          <div class="how-arrow" aria-hidden="true">→</div>
-          <div class="how-card">
-            <div class="how-num">2</div>
-            <div class="how-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            </div>
-            <h3>Get Quote</h3>
-            <p>We return with a treatment plan, estimated price, and next steps after the hospital reviews your case.</p>
-          </div>
-          <div class="how-arrow" aria-hidden="true">→</div>
-          <div class="how-card">
-            <div class="how-num">3</div>
-            <div class="how-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            </div>
-            <h3>Travel &amp; Treat</h3>
-            <p>We help coordinate your visa, airport pickup, hospital admission, surgery, and your early recovery stay.</p>
-          </div>
-        </div>
+        <ol class="steps reveal-stagger">
+          <li class="step">
+            <div class="step-dot"><svg width="22" height="22" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M16 3C8.82 3 3 8.82 3 16c0 2.3.6 4.46 1.65 6.33L3 29l6.84-1.62A13 13 0 0 0 16 29c7.18 0 13-5.82 13-13S23.18 3 16 3zm5.95 17.75c-.33-.16-1.93-.95-2.23-1.06-.3-.1-.52-.16-.74.17-.22.33-.85 1.06-1.04 1.28-.19.22-.38.25-.71.08-.33-.17-1.38-.51-2.63-1.62-.97-.87-1.63-1.94-1.82-2.27-.19-.33-.02-.5.14-.67.15-.15.33-.38.5-.57.17-.2.22-.33.33-.55.1-.22.05-.42-.03-.58-.08-.17-.74-1.78-1.01-2.44-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.58.08-.88.42-.3.33-1.15 1.12-1.15 2.74s1.18 3.18 1.34 3.4c.17.22 2.32 3.54 5.62 4.97.79.34 1.4.54 1.88.69.79.25 1.51.22 2.08.13.63-.1 1.93-.79 2.2-1.55.28-.76.28-1.41.2-1.55-.08-.13-.3-.22-.63-.38z"/></svg></div>
+            <div class="step-body"><span class="step-num" aria-hidden="true">01</span><h3>Send your X-ray</h3><p>On WhatsApp, with a short note. First review is free.</p></div>
+          </li>
+          <li class="step">
+            <div class="step-dot"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div class="step-body"><span class="step-num" aria-hidden="true">02</span><h3>Get your plan</h3><p>Treatment plan and price estimate after hospital review.</p></div>
+          </li>
+          <li class="step">
+            <div class="step-dot"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div>
+            <div class="step-body"><span class="step-num" aria-hidden="true">03</span><h3>Travel &amp; get treated</h3><p>We help with visa, airport pickup, hospital and recovery stay.</p></div>
+          </li>
+        </ol>
       </div>
     </section>
 
     <section id="faq" aria-labelledby="faq-title">
       <div class="container">
         <div class="section-kicker">Questions</div>
-        <h2 id="faq-title" class="section-heading">Common questions</h2>
+        <h2 id="faq-title" class="section-heading">Common <em>questions</em></h2>
         <div class="reveal" style="max-width:720px;">
           <details class="faq-item">
             <summary class="faq-q">Can family travel with me?</summary>
@@ -1358,7 +1592,7 @@
       <div class="container">
         <div class="cta-band reveal">
           <div class="section-kicker" style="color:rgba(255,255,255,0.7);">Start with one message</div>
-          <h2 id="contact-title">Ready to start?</h2>
+          <h2 id="contact-title">Ready to <em>start?</em></h2>
           <p>Send your X-ray on WhatsApp. Get a reply in 48 hours.</p>
           <a class="btn-primary" data-meta-contact href="https://wa.me/918866172776?text=Hi%20MedTrip%20India%2C%20I%27m%20in%20Kenya%20and%20want%20a%20free%20knee%2Fhip%20case%20review." target="_blank" rel="noopener noreferrer">Message us on WhatsApp →</a>
         </div>
@@ -1587,6 +1821,69 @@ document.querySelectorAll('.video-card[data-youtube-id]').forEach(function(card)
 </script>
 
 <script>
+// Side-swipe sliders: arrows, progress line, edge fade
+document.querySelectorAll('.slider').forEach(function(s){
+  var t = s.querySelector('.slider-track');
+  var fill = s.querySelector('.slider-progress span');
+  var prev = s.querySelector('.slider-btn.prev');
+  var next = s.querySelector('.slider-btn.next');
+  if (!t) return;
+  var step = function(){
+    var c = t.children[0];
+    return c ? c.getBoundingClientRect().width + (parseFloat(getComputedStyle(t).columnGap) || 16) : t.clientWidth;
+  };
+  var update = function(){
+    var max = t.scrollWidth - t.clientWidth;
+    var none = max < 4;
+    s.classList.toggle('no-overflow', none);
+    if (none) return;
+    var r = Math.min(1, Math.max(0, t.scrollLeft / max));
+    var vis = t.clientWidth / t.scrollWidth;
+    if (fill) { fill.style.width = (vis * 100) + '%'; fill.style.transform = 'translateX(' + (r * (1 / vis - 1) * 100) + '%)'; }
+    if (prev) prev.disabled = t.scrollLeft < 4;
+    if (next) next.disabled = t.scrollLeft > max - 4;
+    s.classList.toggle('at-end', t.scrollLeft > max - 4);
+  };
+  if (prev) prev.addEventListener('click', function(){ t.scrollBy({ left: -step() }); });
+  if (next) next.addEventListener('click', function(){ t.scrollBy({ left: step() }); });
+  t.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+});
+</script>
+
+<script>
+// Phone menu: open/close with the three-line button, close after picking a section
+(function(){
+  var header = document.querySelector('header');
+  var btn = document.querySelector('.menu-toggle');
+  if (!header || !btn) return;
+  var setOpen = function(open){
+    header.classList.toggle('menu-open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  };
+  btn.addEventListener('click', function(e){ e.stopPropagation(); setOpen(!header.classList.contains('menu-open')); });
+  document.querySelectorAll('#site-menu a').forEach(function(a){ a.addEventListener('click', function(){ setOpen(false); }); });
+  document.addEventListener('click', function(e){ if (!header.contains(e.target)) setOpen(false); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') setOpen(false); });
+})();
+// Underline the menu link for the section on screen
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a[href^="#"]'));
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  var byId = {};
+  links.forEach(function(a){ var s = document.querySelector(a.getAttribute('href')); if (s) byId[s.id] = a; });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting && byId[e.target.id]) {
+        links.forEach(function(a){ a.classList.remove('is-active'); });
+        byId[e.target.id].classList.add('is-active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  Object.keys(byId).forEach(function(id){ io.observe(document.getElementById(id)); });
+})();
 // Dark top bar and hidden floating button while the hero is on screen
 (function(){
   var header = document.querySelector('header');
