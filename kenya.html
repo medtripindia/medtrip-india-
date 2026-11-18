@@ -370,26 +370,14 @@
     }
     .founder-quote { font-family: 'Instrument Serif', 'Times New Roman', serif; font-size: var(--text-lg); margin-bottom: var(--space-4); }
     .founder-meta { font-size: var(--text-sm); color: var(--color-text-muted); }
-    /* Founder card (Why section) */
-    .founder-card { display: flex; align-items: center; gap: var(--space-5); margin-top: var(--space-6); padding: 14px; padding-right: var(--space-5); border-radius: 26px; background: linear-gradient(135deg, #0e3436 0%, #0b2b2d 100%); color: #fff; box-shadow: 0 18px 40px rgba(14,52,54,0.22); max-width: 760px; }
-    .founder-pic { flex: 0 0 auto; width: 118px; aspect-ratio: 4/5; border-radius: 18px; overflow: hidden; box-shadow: 0 0 0 3px rgba(143,227,212,0.35); }
-    .founder-pic img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
-    .founder-kicker { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #8fe3d4; font-weight: 600; }
-    .founder-name { font-family: 'Instrument Serif', serif; font-size: 1.9rem; line-height: 1.1; margin-top: 2px; }
-    .founder-role { font-size: var(--text-xs); color: rgba(255,255,255,0.7); margin-top: 2px; }
-    .founder-line { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 1.12rem; line-height: 1.4; color: rgba(255,255,255,0.92); margin: 10px 0 0; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.14); }
-    @media (min-width: 768px) {
-      .founder-card { padding: 16px; padding-right: var(--space-8); gap: var(--space-6); }
-      .founder-pic { width: 150px; }
-      .founder-name { font-size: 2.3rem; }
-      .founder-line { font-size: 1.3rem; }
-    }
-    @media (max-width: 420px) {
-      .founder-card { gap: 14px; padding-right: 16px; }
-      .founder-pic { width: 100px; }
-      .founder-name { font-size: 1.6rem; }
-      .founder-line { font-size: 1rem; }
-    }
+    /* Doctor-led card with founder photo (Why section) */
+    .card.card-doctor { background: linear-gradient(140deg, #0e3436 0%, #0b2b2d 100%); border-color: transparent; color: #fff; box-shadow: 0 14px 34px rgba(14,52,54,0.22); }
+    .card-doctor h3 { color: #fff; }
+    .card-doctor p { color: rgba(255,255,255,0.78); }
+    .doc-head { display: flex; align-items: center; gap: 12px; margin-bottom: var(--space-3); padding-bottom: var(--space-3); border-bottom: 1px solid rgba(255,255,255,0.14); }
+    .doc-avatar { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; object-position: center 18%; flex-shrink: 0; box-shadow: 0 0 0 2px #0e3436, 0 0 0 4px rgba(143,227,212,0.55); }
+    .doc-name { font-family: 'Instrument Serif', serif; font-size: 1.35rem; line-height: 1.1; }
+    .doc-role { font-size: 0.72rem; letter-spacing: 0.04em; color: #8fe3d4; margin-top: 2px; }
     .badge-pill { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.18rem 0.6rem; border-radius: var(--radius-full); background: var(--color-surface-offset); font-size: var(--text-xs); margin-right: 0.25rem; margin-top: 0.25rem; }
     .partner-grid { display: grid; gap: var(--space-5); }
     @media (min-width: 640px) { .partner-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -1170,7 +1158,14 @@
             <h3>Lower cost, same quality</h3>
             <p>Same modern surgery, much lower price than private care at home.</p>
           </article>
-          <article class="card">
+          <article class="card card-doctor">
+            <div class="doc-head">
+              <img class="doc-avatar" src="dr-jaydeep-founder-medtrip-india.jpg" alt="Dr. Jaydeep, medical doctor and founder of MedTrip India" width="296" height="370" loading="lazy" />
+              <div>
+                <div class="doc-name">Dr. Jaydeep</div>
+                <div class="doc-role">Founder · Medical doctor</div>
+              </div>
+            </div>
             <h3>Doctor-led</h3>
             <p>Founded by a doctor. Every step is medically guided, not just booked.</p>
           </article>
@@ -1178,15 +1173,6 @@
             <h3>We handle everything</h3>
             <p>Visa letter, hospital coordination, airport pickup, all arranged for you.</p>
           </article>
-        </div>
-        <div class="founder-card reveal">
-          <div class="founder-pic"><img src="dr-jaydeep-founder-medtrip-india.jpg" alt="Dr. Jaydeep, medical doctor and founder of MedTrip India" width="296" height="370" loading="lazy" /></div>
-          <div class="founder-text">
-            <div class="founder-kicker">Founder</div>
-            <div class="founder-name">Dr. Jaydeep</div>
-            <div class="founder-role">Medical doctor · Founder, MedTrip India</div>
-            <p class="founder-line">Every case is guided by a doctor, from your first X-ray to your safe return home.</p>
-          </div>
         </div>
       </div>
     </section>
