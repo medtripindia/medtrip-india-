@@ -990,9 +990,11 @@
     .hospital-gallery figcaption { position: absolute; left: 8px; bottom: 8px; padding: 0.25rem 0.65rem; border-radius: 999px; font-size: 0.72rem; font-weight: 600; color: #fff; background: rgba(6,30,32,0.55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
     .hospital-gallery .hg-big { grid-column: span 2; grid-row: span 2; }
     .hospital-gallery .hg-tall { grid-row: span 2; }
+    .hospital-gallery .hg-wide { grid-column: span 2; grid-row: span 2; }
     @media (min-width: 768px) {
       .hospital-gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 160px; gap: 14px; }
-      .hospital-gallery .hg-wide { grid-column: span 2; }
+      .hospital-gallery .hg-wide { grid-column: span 2; grid-row: span 2; }
+      .hospital-gallery .hg-wide ~ figure { grid-row: span 2; }
       .hospital-gallery figure { border-radius: 22px; }
       .hospital-gallery figcaption { font-size: 0.8rem; left: 12px; bottom: 12px; }
     }
@@ -1290,8 +1292,9 @@
           <figure class="hg-tall"><img src="sgvp-hospital-icu-doctors.jpg" alt="Doctors reviewing a patient file in the ICU at SGVP Holistic Hospital" width="830" height="790" loading="lazy" /><figcaption>ICU care</figcaption></figure>
           <figure><img src="sgvp-hospital-super-deluxe-room.jpg" alt="Super deluxe patient room with bed and sofa at SGVP Holistic Hospital" width="1000" height="506" loading="lazy" /><figcaption>Super deluxe room</figcaption></figure>
           <figure><img src="sgvp-hospital-twin-sharing-room.jpg" alt="Twin sharing patient room at SGVP Holistic Hospital" width="1000" height="487" loading="lazy" /><figcaption>Twin sharing room</figcaption></figure>
-          <figure class="hg-wide"><img src="sgvp-hospital-nursing-station.jpg" alt="Nursing station and ward corridor at SGVP Holistic Hospital" width="1000" height="416" loading="lazy" /><figcaption>Nursing station</figcaption></figure>
-          <figure class="hg-wide"><img src="sgvp-hospital-pathology-lab.jpg" alt="In-house pathology lab at SGVP Holistic Hospital" width="1000" height="619" loading="lazy" /><figcaption>In-house lab</figcaption></figure>
+          <figure class="hg-wide"><img src="sgvp-hospital-opd-corridor.jpg" alt="Busy outpatient (OPD) corridor with nurses at SGVP Holistic Hospital" width="1000" height="673" loading="lazy" /><figcaption>Outpatient (OPD) area</figcaption></figure>
+          <figure><img src="sgvp-hospital-nursing-station.jpg" alt="Nursing station and ward corridor at SGVP Holistic Hospital" width="1000" height="416" loading="lazy" /><figcaption>Nursing station</figcaption></figure>
+          <figure><img src="sgvp-hospital-pathology-lab.jpg" alt="In-house pathology lab at SGVP Holistic Hospital" width="1000" height="619" loading="lazy" /><figcaption>In-house lab</figcaption></figure>
         </div>
         <p class="source-note">Photos: SGVP Holistic Hospital, Ahmedabad.</p>
 
