@@ -370,14 +370,12 @@
     }
     .founder-quote { font-family: 'Instrument Serif', 'Times New Roman', serif; font-size: var(--text-lg); margin-bottom: var(--space-4); }
     .founder-meta { font-size: var(--text-sm); color: var(--color-text-muted); }
-    /* Doctor-led card with founder photo (Why section) */
-    .card.card-doctor { background: linear-gradient(140deg, #0e3436 0%, #0b2b2d 100%); border-color: transparent; color: #fff; box-shadow: 0 14px 34px rgba(14,52,54,0.22); }
-    .card-doctor h3 { color: #fff; }
-    .card-doctor p { color: rgba(255,255,255,0.78); }
-    .doc-head { display: flex; align-items: center; gap: 12px; margin-bottom: var(--space-3); padding-bottom: var(--space-3); border-bottom: 1px solid rgba(255,255,255,0.14); }
-    .doc-avatar { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; object-position: center 18%; flex-shrink: 0; box-shadow: 0 0 0 2px #0e3436, 0 0 0 4px rgba(143,227,212,0.55); }
-    .doc-name { font-family: 'Instrument Serif', serif; font-size: 1.35rem; line-height: 1.1; }
-    .doc-role { font-size: 0.72rem; letter-spacing: 0.04em; color: #8fe3d4; margin-top: 2px; }
+    /* Doctor-led card with founder photo (Why section) - same look as other cards */
+    .doc-head { display: flex; align-items: center; gap: 12px; margin-bottom: var(--space-3); }
+    .doc-avatar { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; object-position: center 16%; flex-shrink: 0; background: var(--color-primary-highlight); box-shadow: 0 0 0 3px var(--color-surface), 0 0 0 5px color-mix(in oklch, var(--color-primary) 35%, transparent); }
+    .doc-name { font-family: 'Instrument Serif', serif; font-size: 1.3rem; line-height: 1.1; color: var(--color-text); }
+    .doc-role { font-size: 0.72rem; color: var(--color-primary-active); margin-top: 2px; font-weight: 500; }
+    [data-theme="dark"] .doc-role { color: var(--color-primary); }
     .badge-pill { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.18rem 0.6rem; border-radius: var(--radius-full); background: var(--color-surface-offset); font-size: var(--text-xs); margin-right: 0.25rem; margin-top: 0.25rem; }
     .partner-grid { display: grid; gap: var(--space-5); }
     @media (min-width: 640px) { .partner-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
