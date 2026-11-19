@@ -1281,6 +1281,25 @@
       .fs-field input, .fs-field select { font-size: 0.9rem; }
       .fs-code { flex-direction: column; align-items: flex-start; gap: 2px; font-size: 1.35rem; }
     }
+    /* Compact travel card + yellow fever card on phone (same info, less height) */
+    @media (max-width: 520px) {
+      #flight .route-card { padding: 12px; }
+      #flight .route-3 { margin: 10px 0 26px; }
+      .flight-search { padding: 14px 12px; }
+      .fs-title { font-size: 1.2rem; margin-bottom: 10px; }
+      .fs-grid { gap: 8px; }
+      .fs-field { padding: 7px 11px; gap: 2px; }
+      .fs-code { flex-direction: row; align-items: baseline; font-size: 1.2rem; gap: 6px; }
+      .fs-code small { display: none; }
+      .fs-submit { margin-top: 10px; padding-block: 0.7rem; }
+      .fs-note { margin: 8px 0 8px; }
+      .flight-search .route-links { gap: 4px 14px; font-size: 0.76rem; }
+      .quickfacts-item.qf-alert { padding: 14px; column-gap: 12px; grid-template-columns: 36px minmax(0, 1fr); }
+      .qf-alert-icon { width: 36px; height: 36px; }
+      .qf-alert-icon svg { width: 18px; height: 18px; }
+      .quickfacts-item.qf-alert .qf-value { margin-bottom: 2px; }
+      .quickfacts-item.qf-alert .qf-note { font-size: 0.82rem; line-height: 1.45; }
+    }
     @media (max-width: 420px) {
       .fs-grid label.fs-field:has(input[type="date"]) { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; gap: 10px; }
       .fs-grid label.fs-field:has(input[type="date"]) input { width: auto; text-align: right; }
@@ -1679,9 +1698,9 @@
           </div>
           <div class="quickfacts-item qf-alert">
             <span class="qf-alert-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5"/><path d="m9 11 4 4"/><path d="m5 19-3 3"/><path d="m14 4 6 6"/></svg></span>
-            <div class="qf-label">Health requirement</div>
+            <div class="qf-label">Required for Kenyan patients</div>
             <div class="qf-value">Yellow fever certificate</div>
-            <div class="qf-note">Kenyan patients must carry the <strong>original</strong> certificate. Take the vaccine at least <strong>10 days before arrival</strong>, or you may face up to 6 days of quarantine.</div>
+            <div class="qf-note">Bring the <strong>original</strong>. Vaccine at least <strong>10 days before arrival</strong>, or up to 6 days of quarantine.</div>
           </div>
         </div>
         <p class="source-note">Official visa information: <a class="source-link" href="https://indianvisaonline.gov.in/evisa/" target="_blank" rel="noopener noreferrer">Government of India – e-Visa Portal ↗</a></p>
@@ -1743,7 +1762,7 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
               Search live fares
             </button>
-            <p class="fs-note">Opens Skyscanner with your dates filled in. Most routes change in Mumbai. Fares change daily.</p>
+            <p class="fs-note">Opens Skyscanner with your dates. Fares change daily.</p>
             <div class="route-links">
               <a class="source-link" id="fs-google" href="https://www.google.com/travel/flights?q=Flights%20from%20Nairobi%20to%20Ahmedabad" target="_blank" rel="noopener noreferrer">Compare on Google Flights ↗</a>
               <a class="source-link" href="https://www.skyscanner.com/transport/flights/nbo/bom/" target="_blank" rel="noopener noreferrer">Nairobi → Mumbai ↗</a>
