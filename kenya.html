@@ -1281,6 +1281,33 @@
       .fs-field input, .fs-field select { font-size: 0.9rem; }
       .fs-code { flex-direction: column; align-items: flex-start; gap: 2px; font-size: 1.35rem; }
     }
+    /* Visa cards: 2 per row on phone, 4 per row from tablet up (yellow fever card spans full row) */
+    .quickfacts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (min-width: 768px) { .quickfacts-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+    /* Trip budget card (flight section) */
+    .budget-card { margin-top: var(--space-5); padding: clamp(16px, 3vw, 26px); border-radius: 22px; background: var(--color-surface); border: 1px solid color-mix(in oklch, var(--color-primary) 22%, var(--color-divider)); box-shadow: var(--shadow-sm); max-width: 980px; margin-inline: auto; }
+    .budget-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    .budget-kicker { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; color: var(--color-primary-active); }
+    [data-theme="dark"] .budget-kicker { color: var(--color-primary); }
+    .budget-title { font-family: 'Instrument Serif', serif; font-size: clamp(1.4rem, 1.15rem + 1vw, 1.8rem); line-height: 1.1; margin-top: 2px; }
+    .budget-pill { flex: none; font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.7rem; border-radius: 999px; background: color-mix(in oklch, var(--color-primary) 12%, var(--color-surface)); color: var(--color-primary-active); }
+    [data-theme="dark"] .budget-pill { color: var(--color-primary); }
+    .budget-controls { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 8px; margin-bottom: 12px; }
+    .budget-field { display: flex; flex-direction: column; gap: 2px; padding: 8px 12px; border-radius: 12px; background: var(--color-surface-offset); border: 1px solid var(--color-divider); cursor: pointer; min-width: 0; }
+    .budget-field:focus-within { border-color: var(--color-primary); }
+    .budget-field span { font-size: 0.64rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); font-weight: 600; }
+    .budget-field select { border: 0; background: transparent; padding: 0; font: 600 0.9rem 'Work Sans', sans-serif; color: var(--color-text); outline: none; cursor: pointer; min-width: 0; width: 100%; text-overflow: ellipsis; }
+    .budget-rows { display: flex; flex-direction: column; }
+    .budget-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 9px 2px; border-bottom: 1px dashed var(--color-divider); font-size: var(--text-sm); }
+    .budget-row span { color: var(--color-text-muted); }
+    .budget-row small { font-size: 0.72rem; color: var(--color-text-faint); margin-left: 4px; }
+    .budget-row strong { font-weight: 600; white-space: nowrap; }
+    .budget-avg strong small { font-weight: 400; }
+    .budget-total { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 12px; padding: 14px 16px; border-radius: 16px; background: linear-gradient(150deg, #0e3436 0%, #0b2b2d 100%); color: #fff; }
+    .budget-total span { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #8fe3d4; font-weight: 600; }
+    .budget-total strong { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.1rem); line-height: 1; white-space: nowrap; }
+    .budget-note { margin: 10px 2px 0; font-size: 0.72rem; line-height: 1.5; color: var(--color-text-faint); font-style: italic; }
+    @media (max-width: 380px) { .budget-controls { grid-template-columns: 1fr; } .budget-row small { display: block; margin: 0; } }
     /* Compact travel card + yellow fever card on phone (same info, less height) */
     @media (max-width: 520px) {
       #flight .route-card { padding: 12px; }
@@ -1770,6 +1797,43 @@
             </div>
           </form>
         </div>
+        <div class="budget-card reveal" id="trip-budget">
+          <div class="budget-head">
+            <div>
+              <div class="budget-kicker">Plan your budget</div>
+              <div class="budget-title">Estimated trip cost</div>
+            </div>
+            <span class="budget-pill">Estimate</span>
+          </div>
+          <div class="budget-controls">
+            <label class="budget-field">
+              <span>Treatment</span>
+              <select id="bud-proc">
+                <option value="3700-4200">Knee replacement (1 knee)</option>
+                <option value="4400-5000">Hip replacement (1 hip)</option>
+              </select>
+            </label>
+            <label class="budget-field">
+              <span>Travellers</span>
+              <select id="bud-adults">
+                <option value="1">1 person</option>
+                <option value="2" selected>2 people</option>
+                <option value="3">3 people</option>
+                <option value="4">4 people</option>
+              </select>
+            </label>
+          </div>
+          <div class="budget-rows">
+            <div class="budget-row"><span>Treatment</span><strong id="bud-treat">$3,700 – 4,200</strong></div>
+            <div class="budget-row"><span>Flights <small id="bud-fl-note">economy return × 2</small></span><strong id="bud-flights">$1,140 – 1,640</strong></div>
+            <div class="budget-row budget-avg"><span>Average flight fare</span><strong>~$700 <small>per person, return</small></strong></div>
+          </div>
+          <div class="budget-total">
+            <span>Total estimate</span>
+            <strong id="bud-total">$4,840 – 5,840</strong>
+          </div>
+          <p class="budget-note">Flight fares: typical economy return Nairobi → Ahmedabad, $570–$820 per person (advertised fares for Nov 2026 – Apr 2027). Peak or last-minute dates can cost more. Hotel stay after discharge and visa fees not included. Estimate only. Final price after X-ray review.</p>
+        </div>
       </div>
     </section>
 
@@ -2091,6 +2155,30 @@ document.querySelectorAll('.video-card[data-youtube-id]').forEach(function(card)
     var url = 'https://www.skyscanner.com/transport/flights/nbo/amd/' + short(dep.value) + '/' + short(ret.value) + '/?adultsv2=' + adults.value + '&cabinclass=economy&rtn=1';
     window.open(url, '_blank', 'noopener');
   });
+})();
+</script>
+
+<script>
+// Trip budget: treatment estimate + economy return flights (USD 570-820 per person, typical ~700)
+(function(){
+  var proc = document.getElementById('bud-proc'), ad = document.getElementById('bud-adults');
+  if (!proc || !ad) return;
+  var FL_MIN = 570, FL_MAX = 820;
+  var fmt = function(n){ return '$' + Math.round(n).toLocaleString('en-US'); };
+  var range = function(a, b){ return fmt(a) + ' – ' + Math.round(b).toLocaleString('en-US'); };
+  var fsAdults = document.getElementById('fs-adults');
+  var update = function(){
+    var p = proc.value.split('-').map(Number), n = Number(ad.value);
+    var fMin = FL_MIN * n, fMax = FL_MAX * n;
+    document.getElementById('bud-treat').textContent = range(p[0], p[1]);
+    document.getElementById('bud-flights').textContent = range(fMin, fMax);
+    document.getElementById('bud-fl-note').textContent = 'economy return × ' + n;
+    document.getElementById('bud-total').textContent = range(p[0] + fMin, p[1] + fMax);
+  };
+  proc.addEventListener('change', update);
+  ad.addEventListener('change', function(){ update(); if (fsAdults) { fsAdults.value = ad.value; fsAdults.dispatchEvent(new Event('change')); } });
+  if (fsAdults) fsAdults.addEventListener('change', function(){ if (ad.value !== fsAdults.value) { ad.value = fsAdults.value; update(); } });
+  update();
 })();
 </script>
 
