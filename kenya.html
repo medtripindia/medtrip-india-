@@ -1237,6 +1237,22 @@
     .qf-alert-icon { grid-row: 1 / span 3; width: 44px; height: 44px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: color-mix(in oklch, #f2c94c 30%, var(--color-surface)); color: #8a5a00; }
     [data-theme="dark"] .qf-alert-icon { color: #f2c94c; }
     .quickfacts-item.qf-alert .qf-note { font-size: var(--text-sm); line-height: 1.5; }
+    /* Flight route via Mumbai (3 stops) */
+    .route-3 .route-line { max-width: 230px; margin-top: 1rem; }
+    .route-3 .route-line-short { max-width: 120px; flex: 0.55; }
+    .route-leg { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); font-size: 0.72rem; color: var(--color-text-muted); white-space: nowrap; }
+    .route-line-short .route-plane { animation-duration: 3.2s; animation-delay: 1.6s; }
+    .route-3 { margin-bottom: var(--space-8); }
+    .route-actions { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: var(--space-4); text-align: center; }
+    .route-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; font-size: var(--text-sm); }
+    @media (max-width: 480px) {
+      .route-3 { gap: 6px; }
+      .route-3 .route-code { font-size: 1.45rem; }
+      .route-3 .route-line { max-width: none; }
+      .route-leg { font-size: 0.64rem; }
+      .route-actions .btn-secondary { font-size: 0.85rem; }
+    }
+    #inside .doctors-heading:first-child { margin-top: 0; }
     @keyframes menuPop { from { opacity: 0; transform: translateY(-6px) scale(0.96); } to { opacity: 1; transform: none; } }
     @keyframes menuItem { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: none; } }
 
@@ -1264,10 +1280,10 @@
         </div>
       </a>
       <nav class="nav-links" id="site-menu" aria-label="Primary">
-        <a href="#why">Why India</a>
         <a href="#price">Cost</a>
         <a href="#hospital">Hospital</a>
         <a href="#doctors">Doctors</a>
+        <a href="#why">Why India</a>
         <a href="#facts">Visa</a>
         <a href="#flight">Flights</a>
         <a href="#how">How it works</a>
@@ -1334,40 +1350,6 @@
             </div>
           </div>
           <p class="source-note">Source: <a class="source-link" href="https://data.tourism.gov.in/mrd/Uploads/tourism_data/India%20Tourism%20Data%20Compendium%202025_1.pdf" target="_blank" rel="noopener noreferrer">Ministry of Tourism 2025 data ↗</a></p>
-        </div>
-      </div>
-    </section>
-
-    <section id="why" aria-labelledby="why-title">
-      <div class="container">
-        <h2 id="why-title" class="section-heading" style="margin-bottom:var(--space-5);">Why India <em>and Us</em></h2>
-        <div class="reveal-stagger" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4);">
-          <article class="card">
-            <div class="why-icon"><img src="icon-robot.png" alt="" width="34" height="34" /></div>
-            <h3>Robotic technology</h3>
-            <p>Advanced robotic knee and hip surgery, done by SGVP using a robotic arm for precision.</p>
-          </article>
-          <article class="card">
-            <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor"/></svg></div>
-            <h3>Lower cost, same quality</h3>
-            <p>Same modern surgery, much lower price than private care at home.</p>
-          </article>
-          <article class="card card-doctor">
-            <div class="doc-head">
-              <img class="doc-avatar" src="dr-jaydeep-founder-medtrip-india-round.jpg" alt="Dr. Jaydeep, medical doctor and founder of MedTrip India" width="280" height="280" loading="lazy" />
-              <div>
-                <div class="doc-name">Dr. Jaydeep</div>
-                <div class="doc-role">Founder · Medical doctor</div>
-              </div>
-            </div>
-            <h3>Doctor-led</h3>
-            <p>Founded by a doctor. Every step is medically guided, not just booked.</p>
-          </article>
-          <article class="card">
-            <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg></div>
-            <h3>We handle everything</h3>
-            <p>Visa letter, hospital coordination, airport pickup, all arranged for you.</p>
-          </article>
         </div>
       </div>
     </section>
@@ -1479,6 +1461,57 @@
           </div>
         </div>
 
+      </div>
+    </section>
+
+    <section id="stories" aria-labelledby="stories-title">
+      <div class="container">
+        <div class="section-kicker">Real patients</div>
+        <h2 id="stories-title" class="section-heading">Hear from patients <em>treated at SGVP</em></h2>
+        <div class="slider video-slider">
+        <div class="slider-track reveal-stagger" aria-label="Patient videos">
+          <div class="video-card" data-youtube-id="4yQlhCP_9dU">
+            <div class="video-thumb">
+              <img src="https://i.ytimg.com/vi/4yQlhCP_9dU/hqdefault.jpg" alt="Kenyan patient testimonial video" width="480" height="360" loading="lazy" />
+              <button class="video-play" type="button" aria-label="Play Kenyan patient testimonial"><span>▶</span></button>
+            </div>
+            <div class="video-caption">A Kenyan patient shares how he found relief from arthritis pain at SGVP.</div>
+          </div>
+          <div class="video-card" data-youtube-id="PpstnpfJ9cE">
+            <div class="video-thumb">
+              <img src="https://i.ytimg.com/vi/PpstnpfJ9cE/hqdefault.jpg" alt="International patient care testimonial video" width="480" height="360" loading="lazy" />
+              <button class="video-play" type="button" aria-label="Play international patient care testimonial"><span>▶</span></button>
+            </div>
+            <div class="video-caption">A look at how SGVP welcomes and cares for international patients.</div>
+          </div>
+          <div class="video-card" data-youtube-id="DQ23zg18qrM">
+            <div class="video-thumb">
+              <img src="https://i.ytimg.com/vi/DQ23zg18qrM/hqdefault.jpg" alt="Patient life after treatment testimonial video" width="480" height="360" loading="lazy" />
+              <button class="video-play" type="button" aria-label="Play patient life after treatment testimonial"><span>▶</span></button>
+            </div>
+            <div class="video-caption">An international patient talks about life after treatment at SGVP.</div>
+          </div>
+          <div class="video-card" data-youtube-id="usahGcx5hUc">
+            <div class="video-thumb">
+              <img src="https://i.ytimg.com/vi/usahGcx5hUc/hqdefault.jpg" alt="Patient treatment journey testimonial video" width="480" height="360" loading="lazy" />
+              <button class="video-play" type="button" aria-label="Play patient treatment journey testimonial"><span>▶</span></button>
+            </div>
+            <div class="video-caption">A patient describes their treatment journey in Ahmedabad.</div>
+          </div>
+        </div>
+        <div class="slider-bar">
+          <div class="slider-progress" aria-hidden="true"><span></span></div>
+          <div class="slider-nav">
+            <button class="slider-btn prev" type="button" aria-label="Previous video"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+            <button class="slider-btn next" type="button" aria-label="Next video"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="inside" aria-label="Inside the hospital">
+      <div class="container">
         <h3 class="doctors-heading">Inside the hospital</h3>
         <div class="hospital-gallery reveal">
           <figure class="hg-big"><img src="sgvp-hospital-suite-room.jpg" alt="Suite room at SGVP Holistic Hospital with bed, TV and large window" width="1000" height="471" loading="lazy" /><figcaption>Suite room</figcaption></figure>
@@ -1541,6 +1574,40 @@
       </div>
     </section>
 
+    <section id="why" aria-labelledby="why-title">
+      <div class="container">
+        <h2 id="why-title" class="section-heading" style="margin-bottom:var(--space-5);">Why India <em>and Us</em></h2>
+        <div class="reveal-stagger" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4);">
+          <article class="card">
+            <div class="why-icon"><img src="icon-robot.png" alt="" width="34" height="34" /></div>
+            <h3>Robotic technology</h3>
+            <p>Advanced robotic knee and hip surgery, done by SGVP using a robotic arm for precision.</p>
+          </article>
+          <article class="card">
+            <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor"/></svg></div>
+            <h3>Lower cost, same quality</h3>
+            <p>Same modern surgery, much lower price than private care at home.</p>
+          </article>
+          <article class="card card-doctor">
+            <div class="doc-head">
+              <img class="doc-avatar" src="dr-jaydeep-founder-medtrip-india-round.jpg" alt="Dr. Jaydeep, medical doctor and founder of MedTrip India" width="280" height="280" loading="lazy" />
+              <div>
+                <div class="doc-name">Dr. Jaydeep</div>
+                <div class="doc-role">Founder · Medical doctor</div>
+              </div>
+            </div>
+            <h3>Doctor-led</h3>
+            <p>Founded by a doctor. Every step is medically guided, not just booked.</p>
+          </article>
+          <article class="card">
+            <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg></div>
+            <h3>We handle everything</h3>
+            <p>Visa letter, hospital coordination, airport pickup, all arranged for you.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section id="facts" aria-labelledby="facts-title">
       <div class="container">
         <div class="section-kicker">Good to know</div>
@@ -1587,28 +1654,35 @@
     <section id="flight" aria-labelledby="flight-title">
       <div class="container">
         <div class="section-kicker">Travel route</div>
-        <h2 id="flight-title" class="section-heading">Nairobi to <em>India</em> (Ahmedabad)</h2>
-        <p class="section-intro">A simple route for your hospital visit in India.</p>
+        <h2 id="flight-title" class="section-heading">Nairobi to Ahmedabad, <em>via Mumbai</em></h2>
+        <p class="section-intro">The quickest way: a direct flight to Mumbai, then a short flight to Ahmedabad.</p>
         <div class="route-card reveal">
-          <div class="route-visual">
+          <div class="route-visual route-3">
             <div class="route-point">
               <span class="route-code">NBO</span>
               <span class="route-city">Nairobi</span>
             </div>
-            <div class="route-line"><span class="route-plane"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.3c.4-.2.6-.6.5-1.1Z"/></svg></span></div>
+            <div class="route-line"><span class="route-plane"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.3c.4-.2.6-.6.5-1.1Z"/></svg></span><span class="route-leg">~6.5 h</span></div>
+            <div class="route-point">
+              <span class="route-code">BOM</span>
+              <span class="route-city">Mumbai</span>
+            </div>
+            <div class="route-line route-line-short"><span class="route-plane"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.3c.4-.2.6-.6.5-1.1Z"/></svg></span><span class="route-leg">~1.2 h</span></div>
             <div class="route-point">
               <span class="route-code">AMD</span>
               <span class="route-city">Ahmedabad</span>
             </div>
           </div>
           <div class="route-meta">
-            <span>5–7 hours total travel</span>
-            <span>·</span>
-            <span>$250–$450 return</span>
+            <span>About 11 hours in total, including the change in Mumbai</span>
           </div>
-          <p class="cost-disclaimer" style="text-align:center;">Fares change daily. Check your travel dates directly on Skyscanner.</p>
-          <div style="text-align:center;margin-top:var(--space-4);">
-            <a class="btn-secondary" href="https://www.skyscanner.com/transport/flights/nbo/amd/" target="_blank" rel="noopener noreferrer">Check live flights</a>
+          <p class="cost-disclaimer" style="text-align:center;">Fares and timings change daily. Check live flights for your dates.</p>
+          <div class="route-actions">
+            <a class="btn-secondary" href="https://www.google.com/travel/flights?q=Flights%20from%20Nairobi%20to%20Ahmedabad" target="_blank" rel="noopener noreferrer">Check live flights</a>
+            <div class="route-links">
+              <a class="source-link" href="https://www.skyscanner.com/transport/flights/nbo/bom/" target="_blank" rel="noopener noreferrer">Nairobi → Mumbai ↗</a>
+              <a class="source-link" href="https://www.skyscanner.com/transport/flights/bom/amd/" target="_blank" rel="noopener noreferrer">Mumbai → Ahmedabad ↗</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1633,52 +1707,6 @@
             <div class="step-body"><span class="step-num" aria-hidden="true">03</span><h3>Travel &amp; get treated</h3><p>We help with visa, airport pickup, hospital and recovery stay.</p></div>
           </li>
         </ol>
-      </div>
-    </section>
-
-    <section id="stories" aria-labelledby="stories-title">
-      <div class="container">
-        <div class="section-kicker">Real patients</div>
-        <h2 id="stories-title" class="section-heading">Hear from patients <em>treated at SGVP</em></h2>
-        <div class="slider video-slider">
-        <div class="slider-track reveal-stagger" aria-label="Patient videos">
-          <div class="video-card" data-youtube-id="4yQlhCP_9dU">
-            <div class="video-thumb">
-              <img src="https://i.ytimg.com/vi/4yQlhCP_9dU/hqdefault.jpg" alt="Kenyan patient testimonial video" width="480" height="360" loading="lazy" />
-              <button class="video-play" type="button" aria-label="Play Kenyan patient testimonial"><span>▶</span></button>
-            </div>
-            <div class="video-caption">A Kenyan patient shares how he found relief from arthritis pain at SGVP.</div>
-          </div>
-          <div class="video-card" data-youtube-id="PpstnpfJ9cE">
-            <div class="video-thumb">
-              <img src="https://i.ytimg.com/vi/PpstnpfJ9cE/hqdefault.jpg" alt="International patient care testimonial video" width="480" height="360" loading="lazy" />
-              <button class="video-play" type="button" aria-label="Play international patient care testimonial"><span>▶</span></button>
-            </div>
-            <div class="video-caption">A look at how SGVP welcomes and cares for international patients.</div>
-          </div>
-          <div class="video-card" data-youtube-id="DQ23zg18qrM">
-            <div class="video-thumb">
-              <img src="https://i.ytimg.com/vi/DQ23zg18qrM/hqdefault.jpg" alt="Patient life after treatment testimonial video" width="480" height="360" loading="lazy" />
-              <button class="video-play" type="button" aria-label="Play patient life after treatment testimonial"><span>▶</span></button>
-            </div>
-            <div class="video-caption">An international patient talks about life after treatment at SGVP.</div>
-          </div>
-          <div class="video-card" data-youtube-id="usahGcx5hUc">
-            <div class="video-thumb">
-              <img src="https://i.ytimg.com/vi/usahGcx5hUc/hqdefault.jpg" alt="Patient treatment journey testimonial video" width="480" height="360" loading="lazy" />
-              <button class="video-play" type="button" aria-label="Play patient treatment journey testimonial"><span>▶</span></button>
-            </div>
-            <div class="video-caption">A patient describes their treatment journey in Ahmedabad.</div>
-          </div>
-        </div>
-        <div class="slider-bar">
-          <div class="slider-progress" aria-hidden="true"><span></span></div>
-          <div class="slider-nav">
-            <button class="slider-btn prev" type="button" aria-label="Previous video"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-            <button class="slider-btn next" type="button" aria-label="Next video"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
-          </div>
-        </div>
-        </div>
       </div>
     </section>
 
