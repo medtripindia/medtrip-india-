@@ -1253,6 +1253,43 @@
       .route-actions .btn-secondary { font-size: 0.85rem; }
     }
     #inside .doctors-heading:first-child { margin-top: 0; }
+    /* Flight search panel (inside the route card) */
+    .flight-search { margin-top: var(--space-2); padding: clamp(16px, 3vw, 24px); border-radius: 20px; background: linear-gradient(150deg, #0e3436 0%, #0b2b2d 70%, #092426 100%); color: #fff; box-shadow: 0 18px 40px rgba(14,52,54,0.2); }
+    .fs-title { font-family: 'Instrument Serif', serif; font-size: clamp(1.35rem, 1.1rem + 1vw, 1.7rem); line-height: 1.15; margin-bottom: 14px; }
+    .fs-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .fs-field { display: flex; flex-direction: column; gap: 3px; min-width: 0; padding: 10px 14px; border-radius: 14px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); transition: border-color 200ms, background 200ms; cursor: pointer; }
+    .fs-field:focus-within { border-color: #8fe3d4; background: rgba(255,255,255,0.11); }
+    .fs-fixed { cursor: default; }
+    .fs-label { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: #8fe3d4; font-weight: 600; }
+    .fs-value { font-size: 0.98rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .fs-value em { font-style: normal; font-weight: 500; opacity: 0.6; font-size: 0.8rem; margin-left: 4px; }
+    .fs-field input, .fs-field select { width: 100%; min-width: 0; border: 0; padding: 0; background: transparent; color: #fff; font: 600 0.98rem 'Work Sans', sans-serif; color-scheme: dark; outline: none; cursor: pointer; -webkit-appearance: none; appearance: none; }
+    .fs-field select option { color: #1f2a2a; }
+    .fs-wide { grid-column: 1 / -1; }
+    .fs-submit { width: 100%; justify-content: center; margin-top: 14px; background: #fff !important; color: #0e3436 !important; }
+    .fs-submit:hover { background: #eef7f6 !important; }
+    .fs-note { margin: 10px 0 12px; font-size: 0.75rem; color: rgba(255,255,255,0.65); text-align: center; }
+    .flight-search .route-links .source-link { color: #fff; text-decoration-color: rgba(143,227,212,0.6); }
+    .flight-search .route-links { font-size: 0.82rem; }
+    .fs-code { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 1.5rem; line-height: 1; letter-spacing: 0.02em; display: flex; align-items: baseline; gap: 6px; }
+    .fs-code small { font-family: 'Work Sans', sans-serif; font-size: 0.74rem; font-weight: 500; letter-spacing: 0; opacity: 0.7; overflow: hidden; text-overflow: ellipsis; }
+    .fs-field input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.7; width: 14px; height: 14px; margin: 0 0 0 2px; padding: 0; cursor: pointer; }
+    @media (max-width: 520px) {
+      #flight .route-card { padding: 16px 14px; }
+      .flight-search { padding: 16px 14px; margin-inline: -2px; }
+      .fs-field { padding: 9px 11px; border-radius: 12px; }
+      .fs-field input, .fs-field select { font-size: 0.9rem; }
+      .fs-code { flex-direction: column; align-items: flex-start; gap: 2px; font-size: 1.35rem; }
+    }
+    @media (max-width: 420px) {
+      .fs-grid label.fs-field:has(input[type="date"]) { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; gap: 10px; }
+      .fs-grid label.fs-field:has(input[type="date"]) input { width: auto; text-align: right; }
+    }
+    @media (min-width: 768px) {
+      .fs-grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 0.9fr) minmax(0, 1.1fr) minmax(0, 1.1fr) minmax(0, 1.5fr); }
+      .fs-wide { grid-column: auto; }
+      .flight-search { max-width: 980px; margin-inline: auto; }
+    }
     @keyframes menuPop { from { opacity: 0; transform: translateY(-6px) scale(0.96); } to { opacity: 1; transform: none; } }
     @keyframes menuItem { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: none; } }
 
@@ -1673,14 +1710,46 @@
               <span class="route-city">Ahmedabad</span>
             </div>
           </div>
-          <p class="cost-disclaimer" style="text-align:center;">Fares and timings change daily. Check live flights for your dates.</p>
-          <div class="route-actions">
-            <a class="btn-secondary" href="https://www.google.com/travel/flights?q=Flights%20from%20Nairobi%20to%20Ahmedabad" target="_blank" rel="noopener noreferrer">Check live flights</a>
+          <form class="flight-search" id="flight-search" action="https://www.skyscanner.com/transport/flights/nbo/amd/" target="_blank" novalidate>
+            <div class="fs-title">Check live fares for your dates</div>
+            <div class="fs-grid">
+              <div class="fs-field fs-fixed">
+                <span class="fs-label">From</span>
+                <span class="fs-value fs-code">NBO <small>Nairobi</small></span>
+              </div>
+              <div class="fs-field fs-fixed">
+                <span class="fs-label">To</span>
+                <span class="fs-value fs-code">AMD <small>Ahmedabad</small></span>
+              </div>
+              <label class="fs-field">
+                <span class="fs-label">Depart</span>
+                <input type="date" id="fs-depart" required />
+              </label>
+              <label class="fs-field">
+                <span class="fs-label">Return</span>
+                <input type="date" id="fs-return" required />
+              </label>
+              <label class="fs-field fs-wide">
+                <span class="fs-label">Travellers</span>
+                <select id="fs-adults">
+                  <option value="1">1 adult (patient)</option>
+                  <option value="2" selected>2 adults (patient + 1)</option>
+                  <option value="3">3 adults (patient + 2)</option>
+                  <option value="4">4 adults (patient + 3)</option>
+                </select>
+              </label>
+            </div>
+            <button class="btn-primary fs-submit" type="submit">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              Search live fares
+            </button>
+            <p class="fs-note">Opens Skyscanner with your dates filled in. Most routes change in Mumbai. Fares change daily.</p>
             <div class="route-links">
+              <a class="source-link" id="fs-google" href="https://www.google.com/travel/flights?q=Flights%20from%20Nairobi%20to%20Ahmedabad" target="_blank" rel="noopener noreferrer">Compare on Google Flights ↗</a>
               <a class="source-link" href="https://www.skyscanner.com/transport/flights/nbo/bom/" target="_blank" rel="noopener noreferrer">Nairobi → Mumbai ↗</a>
               <a class="source-link" href="https://www.skyscanner.com/transport/flights/bom/amd/" target="_blank" rel="noopener noreferrer">Mumbai → Ahmedabad ↗</a>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </section>
@@ -1970,6 +2039,40 @@ document.querySelectorAll('.video-card[data-youtube-id]').forEach(function(card)
       'allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>';
   });
 });
+</script>
+
+<script>
+// Flight search: dates pre-filled (3 weeks ahead, 14-day stay), opens live fares with those dates
+(function(){
+  var form = document.getElementById('flight-search');
+  if (!form) return;
+  var dep = document.getElementById('fs-depart'), ret = document.getElementById('fs-return');
+  var adults = document.getElementById('fs-adults'), g = document.getElementById('fs-google');
+  var iso = function(d){ return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+  var addDays = function(s, n){ var d = new Date(s + 'T00:00:00'); d.setDate(d.getDate() + n); return iso(d); };
+  var today = iso(new Date());
+  dep.min = today; dep.value = addDays(today, 21);
+  ret.min = addDays(dep.value, 1); ret.value = addDays(dep.value, 14);
+  var short = function(s){ return s.slice(2, 4) + s.slice(5, 7) + s.slice(8, 10); }; // yymmdd
+  var updateGoogle = function(){
+    g.href = 'https://www.google.com/travel/flights?q=' + encodeURIComponent('Flights from NBO to AMD on ' + dep.value + ' through ' + ret.value + ' for ' + adults.value + ' adults');
+  };
+  dep.addEventListener('change', function(){
+    if (!dep.value) return;
+    ret.min = addDays(dep.value, 1);
+    if (!ret.value || ret.value <= dep.value) ret.value = addDays(dep.value, 14);
+    updateGoogle();
+  });
+  ret.addEventListener('change', updateGoogle);
+  adults.addEventListener('change', updateGoogle);
+  updateGoogle();
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!dep.value || !ret.value) { (dep.value ? ret : dep).focus(); return; }
+    var url = 'https://www.skyscanner.com/transport/flights/nbo/amd/' + short(dep.value) + '/' + short(ret.value) + '/?adultsv2=' + adults.value + '&cabinclass=economy&rtn=1';
+    window.open(url, '_blank', 'noopener');
+  });
+})();
 </script>
 
 <script>
